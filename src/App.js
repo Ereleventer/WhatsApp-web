@@ -3,7 +3,7 @@ import LoginComponent from "./components/LoginComponent";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./PrivateRoute";
-import Home from "./Home";
+import ChatPage from "./ChatPage";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
             path="/"
             element={
               <PrivateRoute>
-                <Home />
+                <ChatPage />
               </PrivateRoute>
             }
           />

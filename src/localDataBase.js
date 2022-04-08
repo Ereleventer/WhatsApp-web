@@ -11,4 +11,10 @@ export const Users = [
     nickname: "Erel",
     pic: "",
   },
+  {
+    username: "1",
+    password: "1",
+    nickname: "1",
+    pic: "",
+  },
 ];
