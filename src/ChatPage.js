@@ -25,16 +25,22 @@ function ChatPage() {
 		setTimeout(() => setAppLoaded(true), 3000);
 	};
 
+	if (!appLoaded) return <Loader done={startLoadProgress} />;
+
 
 	return (
-	  <Router>
-		  <Routes>
-			<Route path="/chat/:id" component={Chat} />
-			<Route component={Home} />
-		</Routes>
-	  </Router>
+		<div className="app">
+			<p className="app__mobile-message"> Only available on desktop 😊. </p>
+				<div className="app-content">
+					<Sidebar />
+					<Routes>
+						<Route path="/chat/:id" component={Chat} />
+						<Route path="/chat/:id"component={Home} />
+					</Routes>
+				</div>
+		</div>
 	);
-  }
+}
   
   export default ChatPage;
   
