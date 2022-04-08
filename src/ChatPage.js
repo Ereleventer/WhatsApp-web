@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Chat.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Loader from "./components/Loader";
 import Home from "./pages/Home";
 import Sidebar from "components/Sidebar";
@@ -33,9 +33,10 @@ function ChatPage() {
 			<p className="app__mobile-message"> Only available on desktop 😊. </p>
 				<div className="app-content">
 					<Sidebar />
+					<Home />
 					<Routes>
+						<Route component={Home} />
 						<Route path="/chat/:id" component={Chat} />
-						<Route path="/chat/:id"component={Home} />
 					</Routes>
 				</div>
 		</div>
