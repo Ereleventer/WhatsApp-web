@@ -1,0 +1,31 @@
+.login-page {
+    top: 50%;
+    left: 50%;
+    background-color: #dadbd3;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+  }
+  
+  .login-box {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    gap: 20px;
+    background-color: #ededed;
+    height: 70vh;
+    width: 40vw;
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75) ;
+  }
+  
+  .login-button {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    gap: 20px;
+  }
