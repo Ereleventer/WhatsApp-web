@@ -2,8 +2,8 @@ import React from "react";
 import { Button, Form, Alert } from "react-bootstrap";
 import { Users } from "../localDataBase";
 import { useAuth } from "../context/AuthContext";
-import { Navigate } from "react-router";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import "./LoginComponent.css";
 
 export default function LoginComponent() {
@@ -14,26 +14,23 @@ export default function LoginComponent() {
 
   //check validity of given user in the login page
   //return true if valid' false else.
-  const { currentUser, setCurrentUser } = useAuth();
+  const { setCurrentUser } = useAuth();
 
   function validationUser(event) {
     event.preventDefault();
     const getUser = Users.find((user) => user.username === username);
     if (getUser && getUser.password === password) {
       setCurrentUser(getUser);
+      navigate("/chat");
     } else {
       setOnError(true);
     }
   }
 
-  if (currentUser) {
-    return <Navigate to="/chat" />;
-  }
-
   const returnAlertError = () => {
     return (
       <Alert variant="danger" onClose={() => setOnError(false)} dismissible>
-        <Alert.Heading style={{ fontSize: "12px" }}>
+        <Alert.Heading style={{ fontSize: "15px" }}>
           Username or Password are not correct. please try again
         </Alert.Heading>
       </Alert>
@@ -70,11 +67,10 @@ export default function LoginComponent() {
               {onErorr && returnAlertError()}
             </div>
           </div>
-          <p>
-            {" "}
-            Not register?{" "}
-            <a href="http://localhost:3000/register"> click here </a>{" "}
-          </p>
+          <div>
+            not register?
+            <Link to="/register">click here</Link>
+          </div>
         </Form>
       </div>
     </div>

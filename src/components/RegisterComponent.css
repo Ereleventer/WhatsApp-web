@@ -1,4 +1,4 @@
-.login-page {
+.register-page {
     top: 50%;
     left: 50%;
     background-color: #dadbd3;
@@ -10,19 +10,19 @@
     color: black;
   }
   
-  .login-box {
+  .register-box {
     align-items: center;
     justify-content: center;
     flex-direction: column;
     display: flex;
     gap: 20px;
     background-color: #ededed;
-    height: 70vh;
+    height: 90vh;
     width: 40vw;
     box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75) ;
   }
   
-  .login-button {
+  .register-button {
     align-items: center;
     justify-content: center;
     flex-direction: column;
