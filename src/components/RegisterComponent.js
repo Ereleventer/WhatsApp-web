@@ -5,6 +5,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 import "./RegisterComponent.css";
 
 export default function RegisterComponent() {
+  //here we hold the input of the user (his username, password..)
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [password2, setPassword2] = React.useState("");
@@ -16,17 +17,18 @@ export default function RegisterComponent() {
 
   const navigate = useNavigate();
 
+  //this function check that the register details are valid
   function validationUser(event) {
     event.preventDefault();
-    console.table(Users);
+    //getUser is boolean that hold true if username already exist in the data base and false otherwise
     const getUser = Users.find((user) => user.username === username);
-    // if this username already exist
+    // if this username already exist or the user leave the username box empty - set error and return
     if (getUser || username === "") {
       setOnErrorUsername(true);
       return;
     }
 
-    //if the password is empty (not valid)
+    //if the password is empty or the password is not match to the confirmation password - set error and return
     if (password === "" || password != password2) {
       setOnErrorPassword(true);
       return;
@@ -37,12 +39,16 @@ export default function RegisterComponent() {
       return;
     }
 
+    //if everything is ok, push the new details into the data base, so the user can now login with those details
     Users.push({ username, password, pic, nickname });
-    console.table(Users);
 
+    //navigate to login page after complete register
     navigate("/login");
   }
 
+  /*
+  for every returnAlertError - we call this function if the set error that match is true. 
+  */
   const returnAlertErrorUsername = () => {
     return (
       <Alert
@@ -85,7 +91,10 @@ export default function RegisterComponent() {
     );
   };
 
+  //this is the "main", whats the user see on the screen
   return (
+    //first we wrap the screen with the css we wrote.
+    //and every <Form.Group> is a box where the user write his details
     <div className="register-page">
       <div className="register-box">
         <Form>
