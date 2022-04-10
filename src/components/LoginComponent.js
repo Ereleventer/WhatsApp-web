@@ -40,6 +40,7 @@ export default function LoginComponent() {
   return (
     <div className="login-page">
       <div className="login-box">
+        <h1>Welcome to our Chat App!</h1>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Username</Form.Label>

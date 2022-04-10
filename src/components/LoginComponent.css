@@ -25,6 +25,11 @@
   box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75) ;
 }
 
+.login-box > h1 {
+  font-size: xx-large;
+  text-shadow: 2px 2px lightgray;
+}
+
 .login-button {
   align-items: center;
   justify-content: center;
