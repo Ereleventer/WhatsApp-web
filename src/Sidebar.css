@@ -1,0 +1,48 @@
+.sidebar{
+    flex: 0.35;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar_header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-right: 1px solid lightgray;
+}
+
+.sidebar_headerRight{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 5vw;
+}
+
+.sidebar_chats {
+    background-color: #FFFFEA;
+    flex: 1;
+    overflow: scroll;
+}
+
+
+.avatar{
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 10vh;
+    width: 5vw;
+}
+
+.chatIcon{
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 5vh;
+    width: 2vw;
+}
+
+.chatIconButton{
+    margin-top: 10px;
+    margin-left: 10px;
+    height: vh;
+    width: 3vw;
+    border: none;
+}
