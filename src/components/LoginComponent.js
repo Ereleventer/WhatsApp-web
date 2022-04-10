@@ -48,6 +48,7 @@ export default function LoginComponent() {
     //first we wrap the all page with the css we wrote. every <Form.Group> is a place on the screen where the user can write his details.
     <div className="login-page">
       <div className="login-box">
+        <h1>Welcome to our Chat App!</h1>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Username</Form.Label>
