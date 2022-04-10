@@ -2,6 +2,7 @@
     flex: 0.35;
     display: flex;
     flex-direction: column;
+    border-right: 1px solid lightgray;
 }
 
 .sidebar_header {
@@ -19,7 +20,7 @@
 }
 
 .sidebar_chats {
-    background-color: #FFFFEA;
+    background-color: white;
     flex: 1;
     overflow: scroll;
 }

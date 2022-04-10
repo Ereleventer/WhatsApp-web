@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import "./SidebarChat.css"
-import avatar from "./pictures/avatar.jpg";
+import avatar from "./pictures/pic2-woman.jpg";
+import { useRoutes } from "react-router";
 
+function SidebarChat({addNewChat}){
+    const [seed,setSeed] = useState("");
+ 
 
-function SidebarChat(){
   return (
       <div className="sidebarChat">
            <img src={avatar} className="avatarChat" />
