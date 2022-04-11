@@ -10,11 +10,11 @@ import contacts from "./data/contacts";
 
 function SidebarChat (props){
     const [seed,setSeed] = useState("");
-    console.log(props.ID);
+ //   console.log(props.ID);
  
 
     const getUser = contacts.find((user) => user.ID === props.ID);
-    console.log(getUser.name);
+ //   console.log(getUser.name);
 
   return (
       <Link to ={`./${props.ID}`}>

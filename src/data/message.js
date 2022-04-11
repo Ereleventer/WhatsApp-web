@@ -1,4 +1,0 @@
-const messages = [
-    "Hiii!",
-    "Hello!!"
-]
