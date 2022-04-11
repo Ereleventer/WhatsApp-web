@@ -1,14 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Sidebar.css"
 import avatar from "./pictures/avatar.jpg";
 import chatIcon from "./pictures/chat_icon.jpg";
 import SidebarChat from "./SidebarChat";
-
+import contacts from "./data/contacts";
 
 function Sidebar(){
+    const ID = contacts.ID;
+    const name = contacts.name;
+    
 
-    const userID=0;
-    console.log(userID);
     const createChat = () => {
         const roomName = prompt("Please enter name for chat");
 
@@ -16,8 +17,7 @@ function Sidebar(){
             // login to add new chat
         }
     };
-
-
+    
   return (
   <div className ="sidebar"> 
     <div className="sidebar_header">
