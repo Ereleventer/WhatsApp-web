@@ -7,7 +7,8 @@ import SidebarChat from "./SidebarChat";
 
 function Sidebar(){
 
-
+    const userID=0;
+    console.log(userID);
     const createChat = () => {
         const roomName = prompt("Please enter name for chat");
 
@@ -27,9 +28,9 @@ function Sidebar(){
         </div>
     </div>
     <div className="sidebar_chats">
-        <SidebarChat/>
-        <SidebarChat/>
-        <SidebarChat/>
+        <SidebarChat ID={1} />
+        <SidebarChat ID={2}/>
+        <SidebarChat ID={3}/>
 
     </div>
   </div>

@@ -11,6 +11,9 @@ import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./PrivateRoute";
 import Home from "./Home";
 import RegisterComponent from "./components/RegisterComponent";
+import Sidebar from "./Sidebar";
+import Chat from "./Chat";
+
 
 function App() {
   return (
@@ -28,10 +31,14 @@ function App() {
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/register" element={<RegisterComponent />} />
           <Route path="*" element={<Navigate to="/chat" />} />
+          <Route path="/chat" element={<Home/>} />
+          <Route path="/chat/:ID" element={<Home/>} />
+
         </Routes>
       </AuthProvider>
     </Router>
   );
 }
+
 
 export default App;
