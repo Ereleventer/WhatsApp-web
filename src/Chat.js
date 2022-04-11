@@ -2,9 +2,12 @@ import React, {useState} from "react";
 import "./Chat.css"
 import chatAvatar from "./pictures/pic2-woman.jpg";
 import fileIcon from "./pictures/add_file_icon.jpg";
+import { useParams } from "react-router";
 
 function Chat(){
-
+    
+    const {roomId} = useParams();
+    
     const [input,setInput] = useState("");
     const sendMessage = (e) => {
         e.preventDefault();
