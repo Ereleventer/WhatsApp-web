@@ -3,23 +3,37 @@ import "./Chat.css"
 import chatAvatar from "./pictures/pic2-woman.jpg";
 import fileIcon from "./pictures/add_file_icon.jpg";
 import { useParams } from "react-router";
+import contacts from "./data/contacts";
 
 function Chat(){
+   
     
     const {roomId} = useParams();
-    
+    const {chatName, setChatName} = useState("");
     const [input,setInput] = useState("");
     const sendMessage = (e) => {
         e.preventDefault();
         console.log("you Typed >>",input);
+        contacts.message.push(input);
+        console.log(contacts.message);
     };
+
+
+    var parts = window.location.href.split('/');
+    var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+
+    console.log(lastSegment);
+    const getUser = contacts.find((user) => user.ID == lastSegment);
+    console.log(getUser.name);
+    console.log(getUser.messages.content);
+
 
   return (
   <div className ="chat"> 
      <div className="chat_header">
          <img src={chatAvatar} className="chatAvatar" />
          <div className="chat_headerInfo">
-             <h3> Contact Name </h3>
+             <h3> {getUser.name} </h3>
          </div>
         
         
@@ -34,7 +48,7 @@ function Chat(){
              <span className="chat_name">Erel
 
              </span>
-             HIIIIIII!
+             {getUser.message}
              <span className="chat_timestamp">
              20:52pm
          </span>
@@ -44,7 +58,7 @@ function Chat(){
     </div>
     <div className="chat_footer">
           <button data-toggle="tooltip" data-placement="top" 
-          title="Create a New Chat" className="chatIconButton">
+          title="Add Data" className="chatIconButton">
               <img src={fileIcon} className="fileIconButton" />
             </button>
             <form>
