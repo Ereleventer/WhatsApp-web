@@ -115,9 +115,19 @@
     display: flex;
 }
 
-.file_icon{
-    margin-top: 10px;
-    margin-left: 10px;
-    height: 5vh;
-    width: 2vw;
+.drop_down > DropdownButton{
+    margin-top: 0px;
+    margin-left: 0px;
+    height: 6vh;
+    width: 3vw;
+    border: none;
+    display: flex;
+    background: white;
+    background-color: white ;
+}
+
+.dropdown_text > h2 {
+    font-size: 4px;
+    align-items: center;
+
 }
