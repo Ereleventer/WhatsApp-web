@@ -17,6 +17,8 @@
     margin-bottom: 8px;
     font-weight: bold;
     margin-left: 5px;
+    text-decoration: none;
+    color: black;
 }
 
 
@@ -24,6 +26,9 @@
     font-size: 16px;
     margin-bottom: 8px;
     margin-left: 5px;
+    color: black;
+    text-decoration: none;
+
 }
 
 .avatarChat{
@@ -31,6 +36,7 @@
     margin-left: 5px;
     height: 7vh;
     width: 3vw;
+    text-decoration: none;
 }
 
 
