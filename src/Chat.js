@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import "./Chat.css"
 import chatAvatar from "./pictures/pic2-woman.jpg";
 import fileIcon from "./pictures/file_icon.png";
@@ -6,15 +6,23 @@ import pictureIcon from "./pictures/photo_icon.png";
 import videoIcon from "./pictures/video_icon.png";
 import soundIcon from "./pictures/sound_icon.png";
 import locationIcon from "./pictures/location_icon.png";
+import { Form, Button, Alert } from "react-bootstrap";
 
 import { useParams } from "react-router";
 import contacts from "./data/contacts";
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
+import Modal from 'react-bootstrap/Modal'
 
 function Chat(){
-   
+    //handle popup window
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     
+    const inputFile = useRef(null);
+
     const {roomId} = useParams();
     const {chatName, setChatName} = useState("");
     const [input,setInput] = useState("");
@@ -33,9 +41,12 @@ function Chat(){
     const getUser = contacts.find((user) => user.ID == lastSegment);
     console.log(getUser.name);
     console.log(getUser.messages.content);
+    
 
+    
 
   return (
+      
   <div className ="chat"> 
      <div className="chat_header">
          <img src={chatAvatar} className="chatAvatar" />
@@ -64,15 +75,20 @@ function Chat(){
         
     </div>
     <div className="chat_footer">
+
             <div className="drop_down"  style={{border: "none", textAlign: "center", display:"flex"}} >   
+    
                 <DropdownButton 
                 id="dropdown-basic-button" 
                 variant=""
                 drop='up'
                 title={<img src={fileIcon} width={"25px"} height={"30px"}/>}
                 >
-                <Dropdown.Item style={{border: "none",width:"150px", textAlign: "left"}}>   
-                   <img src={pictureIcon}  width={"20px"} height={"20px"} /> Add Picture
+                <Dropdown.Item style={{border: "none",width:"150px", textAlign: "left"}   } input={{type:"file", accept:"image/*",id:"single"}}>   
+                    
+                    <img src={pictureIcon}  width={"20px"} height={"20px"} /> Add Picture
+    
+
                 </Dropdown.Item>
             
                 <Dropdown.Item style={{border: "none",width:"150px", textAlign: "left"}}>   
@@ -83,6 +99,30 @@ function Chat(){
                 </Dropdown.Item>
                 <Dropdown.Item style={{border: "none",width:"150px", textAlign: "left"}}>   
                    <img src={locationIcon}  width={"20px"} height={"20px"} /> Add Location
+
+                </Dropdown.Item>
+                <Dropdown.Item onClick={handleShow} style={{border: "none",width:"150px", textAlign: "left"}}>   
+                    <img src={soundIcon}  width={"20px"} height={"20px"} /> Record Audio
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Group controlId="formFile" className="mb-3">
+                            <Form.Label>Default file input example</Form.Label>
+                            <Form.Control type="file" />
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Save Changes
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+
                 </Dropdown.Item>
                 </DropdownButton>
             </div>
