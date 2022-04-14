@@ -1,8 +1,14 @@
+import pic1 from "../pictures/pic1-male.jpg";
+import pic2 from "../pictures/pic2-male.jpg";
+import pic3 from "../pictures/pic2-woman.jpg";
+import pic4 from "../pictures/pic4-woman.jpg";
+
 const users = [
     {
         ID: 1,
         name: "Erel",
         message: "hhhhiiiiiii",
+		pic: pic1,
 
         messages: [
 				{
@@ -23,6 +29,7 @@ const users = [
         ID: 2,
         name: "Shahar",
         message: "Heeyewf;kodfk;koyyyyyyy",
+		pic: pic2,
 
         messages: [
 				{
@@ -43,6 +50,7 @@ const users = [
         ID: 3,
         name: "Alon",
         message: "Heeyy!!!!yyyyyy",
+		pic:pic3,
 
         messages: [
 				{
@@ -63,6 +71,7 @@ const users = [
         ID: "chat",
         name: "Chat",
         message: "Heeyyyyyyyy",
+		pic:pic4,
         messages: [
 				{
 					content: "hiuiiiii",

@@ -57,7 +57,7 @@ function Chat(){
       
   <div className ="chat"> 
      <div className="chat_header">
-         <img src={chatAvatar} className="chatAvatar" />
+         <img src={getUser.pic} className="chatAvatar" />
          <div className="chat_headerInfo">
              <h3> {getUser.name} </h3>
          </div>
