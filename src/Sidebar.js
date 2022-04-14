@@ -27,7 +27,7 @@ function Sidebar(){
   <div className ="sidebar"> 
     <div className="sidebar_header">
         <img src={avatar} className="avatar" />
-        <h1>hi</h1>
+        <h1>userName</h1>
         <div className="sidebar_headerRight">
             <button onClick={createChat} data-toggle="tooltip" data-placement="top" title="Create a New Chat" className="chatIconButton"><img src={chatIcon} className="chatIcon" /></button>
 

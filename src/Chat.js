@@ -16,10 +16,18 @@ import Modal from 'react-bootstrap/Modal'
 
 function Chat(){
     //handle popup window
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+    const [pictureShow, setShowPic] = useState(false);
+    const handleClose = () => setShowPic(false);
+    const handleShow = () => setShowPic(true);
+    const [videoShow, setShowVideo] = useState(false);
+    const handleCloseVid = () => setShowVideo(false);
+    const handleShowVid = () => setShowVideo(true);
+    const [voiceShow, setShowVoice] = useState(false);
+    const handleCloseVoice = () => setShowVoice(false);
+    const handleShowVoice = () => setShowVoice(true);
+    const [locationShow, setShowLocation] = useState(false);
+    const handleCloseLo = () => setShowLocation(false);
+    const handleShowLo = () => setShowLocation(true);
     
     const inputFile = useRef(null);
 
@@ -84,33 +92,35 @@ function Chat(){
                 drop='up'
                 title={<img src={fileIcon} width={"25px"} height={"30px"}/>}
                 >
-                <Dropdown.Item style={{border: "none",width:"150px", textAlign: "left"}   } input={{type:"file", accept:"image/*",id:"single"}}>   
+                <Dropdown.Item onClick={handleShow} style={{border: "none",width:"150px", textAlign: "left"}   } input={{type:"file", accept:"image/*",id:"single"}}>   
                     
                     <img src={pictureIcon}  width={"20px"} height={"20px"} /> Add Picture
     
 
                 </Dropdown.Item>
             
-                <Dropdown.Item style={{border: "none",width:"150px", textAlign: "left"}}>   
+                <Dropdown.Item onClick={handleShowVid} style={{border: "none",width:"150px", textAlign: "left"}}>   
                     <img src={videoIcon} width={"20px"} height={"20px"} textAlign={"left"} /> Add Video
                 </Dropdown.Item>
-                <Dropdown.Item style={{border: "none",width:"150px", textAlign: "left"}}>   
+                <Dropdown.Item onClick={handleShowVoice} style={{border: "none",width:"150px", textAlign: "left"}}>   
                    <img src={soundIcon}  width={"20px"} height={"20px"} /> Record Audio
                 </Dropdown.Item>
-                <Dropdown.Item style={{border: "none",width:"150px", textAlign: "left"}}>   
+                <Dropdown.Item onClick={handleShowLo} style={{border: "none",width:"150px", textAlign: "left"}}>   
                    <img src={locationIcon}  width={"20px"} height={"20px"} /> Add Location
 
                 </Dropdown.Item>
-                <Dropdown.Item onClick={handleShow} style={{border: "none",width:"150px", textAlign: "left"}}>   
-                    <img src={soundIcon}  width={"20px"} height={"20px"} /> Record Audio
-                <Modal show={show} onHide={handleClose}>
+                </DropdownButton>
+
+                <Modal show={pictureShow} onHide={handleClose}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>  Add Picture      
+                    <img src={pictureIcon}  width={"35px"} height={"35px"} /> 
+                    </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form.Group controlId="formFile" className="mb-3">
-                            <Form.Label>Default file input example</Form.Label>
-                            <Form.Control type="file" />
+                            <Form.Label>Add Image from your Computer</Form.Label>
+                            <Form.Control type="file"  multiple accept="image/*" />
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>
@@ -122,9 +132,72 @@ function Chat(){
                     </Button>
                     </Modal.Footer>
                 </Modal>
+            
+                <Modal show={videoShow} onHide={handleCloseVid}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>  Add Video
+                    <img src={videoIcon}  width={"35px"} height={"35px"} /> 
+                    </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Group controlId="formFile" className="mb-3">
+                            <Form.Label>Add Video from your Computer</Form.Label>
+                            <Form.Control type="file"  multiple accept="video/*" />
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseVid}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleCloseVid}>
+                        Save Changes
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
 
-                </Dropdown.Item>
-                </DropdownButton>
+                <Modal show={locationShow} onHide={handleCloseLo}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>  Add Location
+                    <img src={locationIcon}  width={"35px"} height={"35px"} /> 
+                    </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Group controlId="formFile" className="mb-3">
+                            <Form.Label>Add Location</Form.Label>
+                            <Form.Control type="file"  multiple accept="video/*" />
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseLo}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleCloseLo}>
+                        Save Changes
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+
+                <Modal show={voiceShow} onHide={handleCloseVoice}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>  Add Audio
+                    <img src={soundIcon}  width={"35px"} height={"35px"} /> 
+                    </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Group controlId="formFile" className="mb-3">
+                            <Form.Label>Record Audio</Form.Label>
+                            <Form.Control type="radio" x-webkit-speech multiple accept="video/*" />
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseVoice}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleCloseVoice}>
+                        Save Changes
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
             <form>
                 <input value={input} onChange={e=>
@@ -135,6 +208,8 @@ function Chat(){
             </form>
     </div>
   </div>
+
+  
   );
 }
 
