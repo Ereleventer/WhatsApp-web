@@ -35,7 +35,8 @@ function Sidebar(){
         <SidebarChat ID={1} />
         <SidebarChat ID={2}/>
         <SidebarChat ID={3}/>
-
+        <SidebarChat ID={4}/>
+        <SidebarChat ID={5}/>
     </div>
 
     <Modal show={pictureShow} onHide={handleClose}>
