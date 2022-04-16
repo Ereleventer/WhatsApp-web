@@ -86,7 +86,49 @@ const users = [
 					status: "read",
 				},
             ]
-}
+},
+{
+	ID: 4,
+	name: "Iris",
+	message: "Heeyewf;kodfk;koyyyyyyy",
+	pic: pic2,
+
+	messages: [
+			{
+				content: "hiuiiiii",
+				sender: 8,
+				time: "08:11:26",
+				status: null,
+			},
+			{
+				content: "jhihhihhi",
+				sender: null,
+				time: "09:15:45",
+				status: "read",
+			},
+		]
+},
+{
+	ID: 5,
+	name: "Arad",
+	message: "Heeyewf;kodfk;koyyyyyyy",
+	pic: pic2,
+
+	messages: [
+			{
+				content: "hiuiiiii",
+				sender: 8,
+				time: "08:11:26",
+				status: null,
+			},
+			{
+				content: "jhihhihhi",
+				sender: null,
+				time: "09:15:45",
+				status: "read",
+			},
+		]
+},
 ];
 
 export default users; 

@@ -56,7 +56,7 @@
 }
 .chat_body {
     flex : 1;
-    background-image: url("pictures/chat_background.jpg");
+    background-image: url("pictures/background.png");
     background-repeat: repeat;
     background-position: center;
     padding: 30px;

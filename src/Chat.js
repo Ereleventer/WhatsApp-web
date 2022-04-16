@@ -13,6 +13,9 @@ import contacts from "./data/contacts";
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Modal from 'react-bootstrap/Modal'
+import { render } from 'react-dom';
+
+
 
 function Chat(){
     //handle popup window
@@ -41,16 +44,18 @@ function Chat(){
         console.log(contacts.message);
     };
 
-
     var parts = window.location.href.split('/');
     var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
 
     console.log(lastSegment);
     const getUser = contacts.find((user) => user.ID == lastSegment);
-    console.log(getUser.name);
-    console.log(getUser.messages.content);
+  //  console.log(getUser.messages.content);
     
-
+    let welcome = false;
+    if (getUser.ID === "chat"){
+         welcome=true;
+    }
+    
     
 
   return (
@@ -60,6 +65,9 @@ function Chat(){
          <img src={getUser.pic} className="chatAvatar" />
          <div className="chat_headerInfo">
              <h3> {getUser.name} </h3>
+          
+            
+             
          </div>
         
         
