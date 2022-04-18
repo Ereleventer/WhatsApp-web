@@ -18,7 +18,7 @@ import { render } from 'react-dom';
 
 
 function Chat(){
-    //handle popup window
+    //handle popup windows - all dropdown options (picture,video,voice and location)
     const [pictureShow, setShowPic] = useState(false);
     const handleClose = () => setShowPic(false);
     const handleShow = () => setShowPic(true);
@@ -37,6 +37,7 @@ function Chat(){
     const {roomId} = useParams();
     const {chatName, setChatName} = useState("");
     const [input,setInput] = useState("");
+    //handeling messages - we should push it to messages of each contacts.
     const sendMessage = (e) => {
         e.preventDefault();
         console.log("you Typed >>",input);
@@ -44,22 +45,24 @@ function Chat(){
         console.log(contacts.message);
     };
 
+    //here we seperate the chat windows per ID - the id is the last part in the URL
     var parts = window.location.href.split('/');
     var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
 
     console.log(lastSegment);
     const getUser = contacts.find((user) => user.ID == lastSegment);
-  //  console.log(getUser.messages.content);
-    
-    let welcome = false;
-    if (getUser.ID === "chat"){
-         welcome=true;
-    }
     
     
 
   return (
-      
+    /*
+    first part - className="chat_header" - chat header - include the contact name and picture.
+    second part - className="chat_body" - is the chat body that includes the messages and the messages design
+    LoggedInUser should be replaced with the logged in username.
+    time should be replaced with timestamp from the db
+    third part - className="chat_footer" - its the bottom input - 
+    the dropdowns and the message input row.
+    */
   <div className ="chat"> 
      <div className="chat_header">
          <img src={getUser.pic} className="chatAvatar" />
@@ -79,12 +82,12 @@ function Chat(){
          <p className={`chat_message ${true &&
          "chat_reciever"}`}>
            
-             <span className="chat_name">Erel
+             <span className="chat_name">LoggedInUser
 
              </span>
              {getUser.message}
              <span className="chat_timestamp">
-             20:52pm
+             time
          </span>
          </p>
       
