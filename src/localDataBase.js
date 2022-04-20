@@ -9,15 +9,15 @@ export let Users = new Array(
     password: "1111",
     nickname: "Shahar",
     pic: pic1,
-    contacts: [{ username: "aa", pic: picture }],
+    contacts: [{ username: "aa", pic: pic1 }],
   },
 
   {
     username: "erel",
     password: "1111",
-    nickname: "erel",
+    nickname: "Erel",
     pic: pic1,
-    contacts: { username: "aa", pic: picture },
+    contacts: { username: "aa", pic: pic2 },
   },
 
   {
@@ -25,6 +25,6 @@ export let Users = new Array(
     password: "1",
     nickname: "1",
     pic: pic1,
-    contacts: { username: "aa", pic: picture },
+    contacts: { username: "aa", pic: pic3},
   }
 );

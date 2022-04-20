@@ -20,6 +20,11 @@
     height: 90vh;
     width: 40vw;
     box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75) ;
+
+    background-image: url("../pictures/background.png");
+    background-repeat: repeat;
+    background-position: center;
+    overflow: scroll;
   }
   
   .register-button {
