@@ -34,6 +34,7 @@ function Sidebar() {
     }
   }
 
+
   return (
     /*
       header - includes the username and pic that logged into our app (need to add connection between login page and this data)

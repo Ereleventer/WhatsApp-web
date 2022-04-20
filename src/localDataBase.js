@@ -15,6 +15,7 @@ export let Users = new Array(
   {
     username: "erel",
     password: "1111",
+
     nickname: "erel",
     pic: pic3,
     // contacts: { username: "aa", pic: picture },

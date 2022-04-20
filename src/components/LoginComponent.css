@@ -27,16 +27,51 @@ the design for the small window
   height: 70vh;
   width: 40vw;
   box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75) ;
+
+  background-image: url("../pictures/background.png");
+  background-repeat: repeat;
+  background-position: center;
+  overflow: scroll;
 }
 
+.login-box > h1 {
+  font-size: 40px;
+  margin-top: 30px;
+  font-weight: bold;
+    text-decoration: none;
+  color: black;
+  text-shadow: 2px 2px #686868;
+  padding: 10px;
+}
 
+.mb-3 {
+  font-size: 20px;
+    text-decoration: none;
+  color: black;
+  text-shadow: 2px 2px #E4E4E4;
+}
 /*
 the design for the button
 */
 .login-button {
+  margin-top: 30px;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   display: flex;
+  text-align: center;
+  color: #CEF2E1;
   gap: 20px;
+  border-radius: 40px;
+  border: #D7F9F8;
+
+
+}
+
+.login-button > button:hover{
+  display: flex;
+  border-radius: 10px;
+  border: #D7F9F8;
+  text-align: center;
+
 }
