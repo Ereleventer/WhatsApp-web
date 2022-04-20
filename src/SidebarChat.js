@@ -22,7 +22,7 @@ function SidebarChat(props) {
         <img src={getUser.pic} className="avatarChat" />
         <div className="sidebarChat_info">
           <h2>{getUser.name}</h2>
-          <p>{getUser["messages"][0].content}</p>
+          <p>{getUser["messages"][getUser["messages"].length-1].content}</p>
         </div>
       </div>
     </Link>
