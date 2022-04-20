@@ -14,6 +14,10 @@ export let currentUserLoginNickName = {
   nickname: "",
 };
 
+export let currentUserLoginPic = {
+  pic: "",
+};
+
 export default function LoginComponent() {
   //here we hold the input of the user (his username, password..)
   const [username, setUsername] = React.useState("");
@@ -35,6 +39,7 @@ export default function LoginComponent() {
       setCurrentUser(getUser);
       currentUserLogin.username = username;
       currentUserLoginNickName = getUser.nickname;
+      currentUserLoginPic = getUser.pic;
       navigate("/chat/1");
     } else {
       //else - set error to true.

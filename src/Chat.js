@@ -45,14 +45,13 @@ function Chat() {
     const ID = location.pathname.split("/").pop();
 
     const user = users.find((user) => user.ID === Number(ID));
-    user.messages.push({
-      content: input,
-      time: Date.now(),
-    });
+    if (input != "") {
+      user.messages.push({
+        content: input,
+        time: Date.now(),
+      });
+    }
     setInput("");
-    // console.log("you Typed >>", input);
-    // contacts.message.push(input);
-    // console.log(contacts.message);
   };
 
   //check which user is loggin so we can display his nickname
@@ -64,7 +63,6 @@ function Chat() {
   var parts = window.location.href.split("/");
   var lastSegment = parts.pop() || parts.pop(); // handle potential trailing slash
 
-  console.log(lastSegment);
   const getUser = contacts.find((user) => user.ID == lastSegment);
 
   return (
@@ -94,7 +92,10 @@ function Chat() {
             >
               <span className="chat_name">{userToDisplay.nickname} </span>
               {message.content}
-              <span className="chat_timestamp">time</span>
+              <span className="chat_timestamp">
+                {getUser["messages"][0].time}
+                {}
+              </span>
             </p>
           );
         })}
