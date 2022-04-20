@@ -6,6 +6,14 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import "./LoginComponent.css";
 
+export let currentUserLogin = {
+  username: "",
+};
+
+export let currentUserLoginNickName = {
+  nickname: "",
+};
+
 export default function LoginComponent() {
   //here we hold the input of the user (his username, password..)
   const [username, setUsername] = React.useState("");
@@ -25,7 +33,9 @@ export default function LoginComponent() {
     //if the username is in the data base and the password that the user write is match to the user name, so navigate to chat page
     if (getUser && getUser.password === password) {
       setCurrentUser(getUser);
-      navigate("/chat");
+      currentUserLogin.username = username;
+      currentUserLoginNickName = getUser.nickname;
+      navigate("/chat/1");
     } else {
       //else - set error to true.
       setOnError(true);

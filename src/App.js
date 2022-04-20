@@ -14,14 +14,13 @@ import RegisterComponent from "./components/RegisterComponent";
 import Sidebar from "./Sidebar";
 import Chat from "./Chat";
 
-
 function App() {
   return (
     <Router>
       <AuthProvider>
         <Routes>
           <Route
-            path="/chat"
+            path="/chat/:ID"
             element={
               <PrivateRoute>
                 <Home />
@@ -30,15 +29,11 @@ function App() {
           />
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/register" element={<RegisterComponent />} />
-          <Route path="*" element={<Navigate to="/chat" />} />
-          <Route path="/chat" element={<Home/>} />
-          <Route path="/chat/:ID" element={<Home/>} />
-
+          <Route path="*" element={<Navigate to="/chat/1" />} />
         </Routes>
       </AuthProvider>
     </Router>
   );
 }
-
 
 export default App;
