@@ -16,13 +16,13 @@ function SidebarChat(props) {
     /*
       link to the relevant chat ID in order to select the currect chat.
       the sidebar chat only include the contact name and latest message. 
-      */
+    */
     <Link to={`/chat/${props.ID}`} style={{ textDecoration: "none" }}>
       <div className="sidebarChat">
         <img src={getUser.pic} className="avatarChat" />
         <div className="sidebarChat_info">
           <h2>{getUser.name}</h2>
-          <p>{getUser.message}</p>
+          <p>{getUser["messages"][0].content}</p>
         </div>
       </div>
     </Link>
