@@ -34,3 +34,9 @@
     display: flex;
     gap: 20px;
   }
+
+  .register-button:hover {
+    display: flex;
+    border-radius: 10px;
+  }
+  

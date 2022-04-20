@@ -91,9 +91,16 @@ export default function LoginComponent() {
               {onErorr && returnAlertError()}
             </div>
           </div>
-          <div>
-            not register?
-            <Link to="/register">click here</Link>
+          <div className="line"></div>
+          <div className="seperate">
+            <p>Don't have an Account?</p>
+          </div>
+          <div className="register">
+            <Link to="/register">
+                <Button variant="primary" type="button" className="register_button">
+              Register
+            </Button>
+            </Link>
           </div>
         </Form>
       </div>
