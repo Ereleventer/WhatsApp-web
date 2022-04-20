@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Users } from "../localDataBase";
 import { useNavigate } from "react-router";
 import { Form, Button, Alert } from "react-bootstrap";
@@ -16,6 +16,10 @@ export default function RegisterComponent() {
   const [pic, setPic] = React.useState(null);
 
   const navigate = useNavigate();
+
+  function handleChange(e) {
+    setPic(URL.createObjectURL(e.target.files[0]));
+  }
 
   //this function check that the register details are valid
   function validationUser(event) {
@@ -134,17 +138,10 @@ export default function RegisterComponent() {
               onChange={(e) => setNickname(e.target.value)}
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Photo</Form.Label>
-            <Form.Control
-              input
-              type="file"
-              value={pic}
-              onChange={(e) => setPic(e.target.value)}
-            />
+            <Form.Control type="file" onChange={handleChange} src={pic} />
           </Form.Group>
-
           <div className="register-button">
             <Button variant="primary" type="register" onClick={validationUser}>
               Register

@@ -9,22 +9,23 @@ export let Users = new Array(
     password: "1111",
     nickname: "Shahar",
     pic: pic1,
-    contacts: [{ username: "aa", pic: pic1 }],
+    // contacts: [{ username: "aa", pic: picture }],
   },
 
   {
     username: "erel",
     password: "1111",
-    nickname: "Erel",
-    pic: pic1,
-    contacts: { username: "aa", pic: pic2 },
+
+    nickname: "erel",
+    pic: pic3,
+    // contacts: { username: "aa", pic: picture },
   },
 
   {
     username: "1",
     password: "1",
     nickname: "1",
-    pic: pic1,
-    contacts: { username: "aa", pic: pic3},
+    pic: pic2,
+    // contacts: { username: "aa", pic: picture },
   }
 );

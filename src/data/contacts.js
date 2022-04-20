@@ -7,20 +7,20 @@ export let users = [
   {
     ID: 1,
     name: "Erel",
-    message: "hhhhiiiiiii",
+    // message: "hhhhiiiiiii",
     pic: pic1,
 
     messages: [
       {
-        content: "hiuiiiii",
+        content: "hey Erel how are you?",
         sender: 8,
-        time: "08:11:26",
+        time: "08:11",
         status: null,
       },
       {
-        content: "jhihhihhi",
+        content: "you looks good today!",
         sender: null,
-        time: "09:15:45",
+        time: "09:15",
         status: "read",
       },
     ],
@@ -28,18 +28,18 @@ export let users = [
   {
     ID: 2,
     name: "Shahar",
-    message: "Heeyewf;kodfk;koyyyyyyy",
+    // message: "Heeyewf;kodfk;koyyyyyyy",
     pic: pic2,
 
     messages: [
       {
-        content: "hiuiiiii",
+        content: "hello Shahar",
         sender: 8,
-        time: "08:11:26",
+        time: "09:17",
         status: null,
       },
       {
-        content: "jhihhihhi",
+        content: "You are the most beautiful man I ever saw!",
         sender: null,
         time: "09:15:45",
         status: "read",
@@ -49,18 +49,18 @@ export let users = [
   {
     ID: 3,
     name: "Alon",
-    message: "Heeyy!!!!yyyyyy",
+    // message: "Heeyy!!!!yyyyyy",
     pic: pic3,
 
     messages: [
       {
-        content: "hiuiiiii",
+        content: "whatsapppppp",
         sender: 8,
-        time: "08:11:26",
+        time: "15:15",
         status: null,
       },
       {
-        content: "jhihhihhi",
+        content: "all good?",
         sender: null,
         time: "09:15:45",
         status: "read",
@@ -70,7 +70,7 @@ export let users = [
   {
     ID: "chat",
     name: "Chat",
-    message: "Heeyyyyyyyy",
+    // message: "Heeyyyyyyyy",
     pic: pic4,
     messages: [
       {
@@ -90,18 +90,18 @@ export let users = [
   {
     ID: 4,
     name: "Iris",
-    message: "Heeyewf;kodfk;koyyyyyyy",
+    // message: "Heeyewf;kodfk;koyyyyyyy",
     pic: pic2,
 
     messages: [
       {
-        content: "hiuiiiii",
+        content: "Hey Iris, how's Tommy?",
         sender: 8,
-        time: "08:11:26",
+        time: "11:30",
         status: null,
       },
       {
-        content: "jhihhihhi",
+        content: "Or should I say Toytoy?",
         sender: null,
         time: "09:15:45",
         status: "read",
@@ -111,18 +111,18 @@ export let users = [
   {
     ID: 5,
     name: "Arad",
-    message: "Heeyewf;kodfk;koyyyyyyy",
+    // message: "Heeyewf;kodfk;koyyyyyyy",
     pic: pic2,
 
     messages: [
       {
-        content: "hiuiiiii",
+        content: "Hey, how are you Arad?",
         sender: 8,
-        time: "08:11:26",
+        time: "20:12",
         status: null,
       },
       {
-        content: "jhihhihhi",
+        content: "You are Erel's little brother right?",
         sender: null,
         time: "09:15:45",
         status: "read",

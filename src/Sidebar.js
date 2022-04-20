@@ -7,9 +7,11 @@ import contacts from "./data/contacts";
 import { Users } from "./localDataBase";
 import LoginComponent from "./components/LoginComponent";
 import { currentUserLogin } from "./components/LoginComponent";
+import { currentUserLoginPic } from "./components/LoginComponent";
 import { currentUserLoginNickName } from "./components/LoginComponent";
 import Modal from "react-bootstrap/Modal";
 import { Form, Button, Alert } from "react-bootstrap";
+import { users } from "./data/contacts";
 
 function Sidebar() {
   const ID = contacts.ID;
@@ -20,11 +22,17 @@ function Sidebar() {
   const [pictureShow, setShowPic] = useState(false);
   const handleClose = () => setShowPic(false);
   const handleShow = () => setShowPic(true);
+  const [newContact, setNewContact] = useState("");
+  const [onErorrContact, setOnErrorContact] = React.useState(false);
 
-  //check which user is loggin so we can display his nickname
-  let userToDisplay = Users.find(
-    (user) => user.username === currentUserLogin.username
-  );
+  function addNewContact(event) {
+    event.preventDefault();
+    //getUser is the user that match to the newContact that added. if there is no match getUser will be null
+    const getUser = Users.find((user) => user.username === newContact);
+    if (newContact === "" || getUser === null) {
+      setOnErrorContact(true);
+    }
+  }
 
 
   return (
@@ -40,7 +48,7 @@ function Sidebar() {
       */
     <div className="sidebar">
       <div className="sidebar_header">
-        <img src={avatar} className="avatar" />
+        <img src={currentUserLoginPic} className="avatar" />
         <h1>{currentUserLoginNickName}</h1>
         <div className="sidebar_headerRight">
           <button
@@ -64,20 +72,26 @@ function Sidebar() {
 
       <Modal show={pictureShow} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>  Add New Chat</Modal.Title>
+          <Modal.Title>Add New Chat</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Type the Contact Name</Form.Label>
-            <Form.Control type="type" multiple accept="image/*" />
+            <Form.Control
+              value={newContact}
+              onChange={(e) => setNewContact(e.target.value)}
+              type="type"
+              multiple
+              accept="image/*"
+            />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="primary" onClick={addNewContact}>
+            Add contact
           </Button>
         </Modal.Footer>
       </Modal>
