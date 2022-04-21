@@ -59,4 +59,8 @@
     border: none;
 }
 
-
+.new_chat_body > p{
+    font-size: 15px;
+    text-shadow: none;
+    margin-bottom: 5px;
+}

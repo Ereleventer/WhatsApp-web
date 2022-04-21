@@ -12,37 +12,37 @@ import { currentUserLoginNickName } from "./components/LoginComponent";
 import Modal from "react-bootstrap/Modal";
 import { Form, Button, Alert } from "react-bootstrap";
 import { users } from "./data/contacts";
+import {messages} from "./data/newContantMessages"
 
 function Sidebar() {
-  const ID = contacts.ID;
-  const name = contacts.name;
-  //user logged in
+ 
 
   //handle popup of create new chat
   const [pictureShow, setShowPic] = useState(false);
   const handleClose = () => setShowPic(false);
   const handleShow = () => setShowPic(true);
-  const [newContact, setNewContact] = useState("");
-  const [onErorrContact, setOnErrorContact] = React.useState(false);
+  const [newContact, setNewContact] = React.useState("");
+  const ID = users[users.length-1].ID + 1;
+  const last_seen = "online";
+  const handleNewChat = () =>{
+    console.log(newContact);
+    const getUser = Registered_Users.find((user) => user.nickname === newContact);
+    console.log(getUser);
+    const pic = getUser.pic;
+    console.log("#########");
+  console.log(getUser.nickname);
+  console.log("#####");
+   console.log(newContact);
+   const name = getUser.nickname;
+   console.log("#######!!!!!##");
+    console.log(users[users.length-1]);
+    console.log("#######!!!!!##");
 
-  function addNewContact(event) {
-    event.preventDefault();
-    //getUser is the user that match to the newContact that added. if there is no match getUser will be null
-    const getUser = Registered_Users.find((user) => user.username === newContact);
-    if (newContact === "" || getUser === null) {
-      setOnErrorContact(true);
-    }
-  }
-  var parts = window.location.href.split("/");
-  var lastSegment = parts.pop() || parts.pop(); // handle potential trailing slash
+   console.log({ ID,name,pic,last_seen,messages })
+   users.push({ ID,name,pic,last_seen,messages });
+   setShowPic(false);
 
-  const getCurrentUser = contacts.find((user) => user.ID == lastSegment);
 
-  const hideMe = id => currentUserLoginNickName
-  const [hidden, hiddenSet] = useState([]);
-
-  function createNewChatttt (chat_name){
-    console.log(chat_name)
   }
 
 
@@ -82,24 +82,23 @@ function Sidebar() {
       })}
       </div>
 
-      <Modal show={pictureShow} onHide={handleClose}>
+      <Modal className="new_chat" show={pictureShow} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add New Chat</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Type the Contact Name</Form.Label>
-            <Form.Select aria-label="Default select example" value={createNewChatttt}>
-              <option>Open this select menu</option>
-              {Registered_Users.map((Registered_Users) => {
+            <Form.Label className="new_chat_body"><p>Select the Contact Name</p></Form.Label>
+            <Form.Control as="select" 
+             value={newContact}
+             onChange={(e) => setNewContact(e.target.value)}
+              >
+                {Registered_Users.map((Registered_Users) => {
                 return (
-                  <option value="1">{Registered_Users.nickname}</option>
+                  <option>{Registered_Users.nickname}</option>
                );
               })}
-
-              value={newContact}
-              onChange={(e) => setNewContact(e.target.value)}
-            </Form.Select>
+            </Form.Control>
 
           </Form.Group>
         </Modal.Body>
@@ -107,7 +106,7 @@ function Sidebar() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={addNewContact}>
+          <Button variant="primary" onClick={handleNewChat}>
             Add contact
           </Button>
         </Modal.Footer>
