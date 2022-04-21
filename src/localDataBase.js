@@ -9,7 +9,6 @@ export let Registered_Users = new Array(
     password: "1111",
     nickname: "Shahar",
     pic: pic1,
-    // contacts: [{ username: "aa", pic: picture }],
   },
 
   {
@@ -18,7 +17,6 @@ export let Registered_Users = new Array(
 
     nickname: "erel",
     pic: pic3,
-    // contacts: { username: "aa", pic: picture },
   },
 
   {
@@ -26,6 +24,11 @@ export let Registered_Users = new Array(
     password: "1",
     nickname: "1",
     pic: pic2,
-    // contacts: { username: "aa", pic: picture },
+  },
+  {
+    username: "test",
+    password: "12",
+    nickname: "test",
+    pic: pic4,
   }
 );
