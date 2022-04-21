@@ -28,6 +28,8 @@
     margin-bottom: 3px;
     font-weight: 500;
     color: grey;
+    text-shadow: 2px 2px #bcc1c7;
+
 }
 .chat_message{
     position: relative;
