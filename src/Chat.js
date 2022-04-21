@@ -15,6 +15,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
 import { Registered_Users } from "./localDataBase";
 import { users } from "./data/contacts";
+import useRecorder from "./useRecorder";
+
 
 function Chat() {
   //handle popup windows - all dropdown options (picture,video,voice and location)
@@ -64,6 +66,7 @@ function Chat() {
   var lastSegment = parts.pop() || parts.pop(); // handle potential trailing slash
 
   const getUser = contacts.find((user) => user.ID == lastSegment);
+  let [audioURL, isRecording, startRecording, stopRecording] = useRecorder();
 
   return (
     /*
@@ -226,13 +229,22 @@ function Chat() {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form.Group controlId="formFile" className="mb-3">
-                <Form.Label>Record Audio</Form.Label>
+              <Form.Group controlId="formFile" className="audio">
+                <audio src={audioURL} controls className="audio_recorder"/>
+                <div className="seperator"></div>
+                <button className="start_record" onClick={startRecording} disabled={isRecording}>
+                    Start recording
+                </button>
+                <button className="stop_record" onClick={stopRecording} disabled={!isRecording}>
+                    Stop recording
+                </button>
+
                 <Form.Control
                   type="radio"
                   x-webkit-speech
                   multiple
                   accept="video/*"
+                  style={{display:"none"}}
                 />
               </Form.Group>
             </Modal.Body>

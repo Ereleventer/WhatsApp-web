@@ -24,26 +24,38 @@ function Sidebar() {
   const [newContact, setNewContact] = React.useState("");
   const ID = users[users.length-1].ID + 1;
   const last_seen = "online";
+  const [onErorrUsername, setOnErrorUsername] = React.useState(false);
+
   const handleNewChat = () =>{
-    console.log(newContact);
     const getUser = Registered_Users.find((user) => user.nickname === newContact);
-    console.log(getUser);
     const pic = getUser.pic;
-    console.log("#########");
-  console.log(getUser.nickname);
-  console.log("#####");
-   console.log(newContact);
-   const name = getUser.nickname;
-   console.log("#######!!!!!##");
-    console.log(users[users.length-1]);
-    console.log("#######!!!!!##");
-
-   console.log({ ID,name,pic,last_seen,messages })
-   users.push({ ID,name,pic,last_seen,messages });
-   setShowPic(false);
-
-
+    const name = getUser.nickname; 
+    const getUserfromContacts = users.find((user) => user.name === newContact);
+    if (getUserfromContacts) {
+      setOnErrorUsername(true);
+      return;
+    }
+    console.log("###########");
+    console.log(getUserfromContacts);
+    console.log("###########");
+    console.log({ ID,name,pic,last_seen,messages })
+    users.push({ ID,name,pic,last_seen,messages });
+    setShowPic(false);
   }
+
+  const returnAlertErrorUsername = () => {
+    return (
+      <Alert
+        variant="danger"
+        onClose={() => setOnErrorUsername(false)}
+        dismissible
+      >
+        <Alert.Heading style={{ fontSize: "10px" }}>
+          Chat Already exist! choose another contact.
+        </Alert.Heading>
+      </Alert>
+    );
+  };
 
   const getUserFilter = Registered_Users.find((user) => user.nickname === currentUserLoginNickName);
 
@@ -103,7 +115,7 @@ function Sidebar() {
                );
               })}
             </Form.Control>
-
+            {onErorrUsername && returnAlertErrorUsername()}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

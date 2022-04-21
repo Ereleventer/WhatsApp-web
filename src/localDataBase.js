@@ -7,7 +7,7 @@ export let Registered_Users = new Array(
   {
     username: "ShaharShaki@gmail.com",
     password: "1111",
-    nickname: "Shahar",
+    nickname: "shahar",
     pic: pic1,
   },
 
