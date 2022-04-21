@@ -3,7 +3,7 @@ import pic2 from "./pictures/pic2-male.jpg";
 import pic3 from "./pictures/pic2-woman.jpg";
 import pic4 from "./pictures/pic4-woman.jpg";
 
-export let Users = new Array(
+export let Registered_Users = new Array(
   {
     username: "ShaharShaki@gmail.com",
     password: "1111",

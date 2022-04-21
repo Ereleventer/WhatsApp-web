@@ -4,7 +4,7 @@ import avatar from "./pictures/avatar.jpg";
 import chatIcon from "./pictures/chat_icon.jpg";
 import SidebarChat from "./SidebarChat";
 import contacts from "./data/contacts";
-import { Users } from "./localDataBase";
+import { Registered_Users } from "./localDataBase";
 import LoginComponent from "./components/LoginComponent";
 import { currentUserLogin } from "./components/LoginComponent";
 import { currentUserLoginPic } from "./components/LoginComponent";
@@ -28,14 +28,26 @@ function Sidebar() {
   function addNewContact(event) {
     event.preventDefault();
     //getUser is the user that match to the newContact that added. if there is no match getUser will be null
-    const getUser = Users.find((user) => user.username === newContact);
+    const getUser = Registered_Users.find((user) => user.username === newContact);
     if (newContact === "" || getUser === null) {
       setOnErrorContact(true);
     }
   }
+  var parts = window.location.href.split("/");
+  var lastSegment = parts.pop() || parts.pop(); // handle potential trailing slash
+
+  const getCurrentUser = contacts.find((user) => user.ID == lastSegment);
+
+  const hideMe = id => currentUserLoginNickName
+  const [hidden, hiddenSet] = useState([]);
+
+  function createNewChatttt (chat_name){
+    console.log(chat_name)
+  }
 
 
   return (
+
     /*
       header - includes the username and pic that logged into our app (need to add connection between login page and this data)
       LoggedInUser should be replaced with the logged in username.
@@ -63,11 +75,11 @@ function Sidebar() {
         </div>
       </div>
       <div className="sidebar_chats">
-        <SidebarChat ID={1} />
-        <SidebarChat ID={2} />
-        <SidebarChat ID={3} />
-        <SidebarChat ID={4} />
-        <SidebarChat ID={5} />
+      {users.map((users) => {
+          return (
+        <SidebarChat ID={users.ID} />
+        );
+      })}
       </div>
 
       <Modal show={pictureShow} onHide={handleClose}>
@@ -77,13 +89,18 @@ function Sidebar() {
         <Modal.Body>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Type the Contact Name</Form.Label>
-            <Form.Control
+            <Form.Select aria-label="Default select example" value={createNewChatttt}>
+              <option>Open this select menu</option>
+              {Registered_Users.map((Registered_Users) => {
+                return (
+                  <option value="1">{Registered_Users.nickname}</option>
+               );
+              })}
+
               value={newContact}
               onChange={(e) => setNewContact(e.target.value)}
-              type="type"
-              multiple
-              accept="image/*"
-            />
+            </Form.Select>
+
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

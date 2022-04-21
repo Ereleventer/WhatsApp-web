@@ -67,26 +67,7 @@ export let users = [
       },
     ],
   },
-  {
-    ID: "chat",
-    name: "Chat",
-    // message: "Heeyyyyyyyy",
-    pic: pic4,
-    messages: [
-      {
-        content: "hiuiiiii",
-        sender: 8,
-        time: "08:11:26",
-        status: null,
-      },
-      {
-        content: "jhihhihhi",
-        sender: null,
-        time: "09:15:45",
-        status: "read",
-      },
-    ],
-  },
+  
   {
     ID: 4,
     name: "Iris",

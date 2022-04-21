@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Users } from "../localDataBase";
+import { Registered_Users } from "../localDataBase";
 import { useNavigate } from "react-router";
 import { Form, Button, Alert } from "react-bootstrap";
 import "./RegisterComponent.css";
@@ -25,7 +25,7 @@ export default function RegisterComponent() {
   function validationUser(event) {
     event.preventDefault();
     //getUser is boolean that hold true if username already exist in the data base and false otherwise
-    const getUser = Users.find((user) => user.username === username);
+    const getUser = Registered_Users.find((user) => user.username === username);
     // if this username already exist or the user leave the username box empty - set error and return
     if (getUser || username === "") {
       setOnErrorUsername(true);
@@ -44,7 +44,7 @@ export default function RegisterComponent() {
     }
 
     //if everything is ok, push the new details into the data base, so the user can now login with those details
-    Users.push({ username, password, pic, nickname });
+    Registered_Users.push({ username, password, pic, nickname });
 
     //navigate to login page after complete register
     navigate("/login");
