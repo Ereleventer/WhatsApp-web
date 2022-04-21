@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     border-right: 1px solid lightgray;
+    
 }
 
 .sidebar_header {
@@ -21,6 +22,7 @@
     text-decoration: none;
     color: #686868;
     text-shadow: 2px 3px #E4E4E4;
+    
 }
 
 .sidebar_headerRight{
