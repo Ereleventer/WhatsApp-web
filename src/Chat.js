@@ -79,6 +79,7 @@ function Chat() {
         <img src={getUser.pic} className="chatAvatar" />
         <div className="chat_headerInfo">
           <h3> {getUser.name} </h3>
+          <p>{getUser.last_seen}</p>
         </div>
 
         <div className="chat_headerRight"></div>

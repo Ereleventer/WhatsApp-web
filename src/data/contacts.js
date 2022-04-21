@@ -7,7 +7,7 @@ export let users = [
   {
     ID: 1,
     name: "Erel",
-    // message: "hhhhiiiiiii",
+    last_seen: "online",
     pic: pic1,
 
     messages: [
@@ -28,7 +28,7 @@ export let users = [
   {
     ID: 2,
     name: "Shahar",
-    // message: "Heeyewf;kodfk;koyyyyyyy",
+    last_seen: "last seen today at 9:15",
     pic: pic2,
 
     messages: [
@@ -49,7 +49,7 @@ export let users = [
   {
     ID: 3,
     name: "Alon",
-    // message: "Heeyy!!!!yyyyyy",
+    last_seen: "online",
     pic: pic3,
 
     messages: [
@@ -90,7 +90,7 @@ export let users = [
   {
     ID: 4,
     name: "Iris",
-    // message: "Heeyewf;kodfk;koyyyyyyy",
+    last_seen: "last seen yesterday at 10:45",
     pic: pic2,
 
     messages: [
@@ -111,7 +111,7 @@ export let users = [
   {
     ID: 5,
     name: "Arad",
-    // message: "Heeyewf;kodfk;koyyyyyyy",
+    last_seen: "last seen today at 11:36",
     pic: pic2,
 
     messages: [
