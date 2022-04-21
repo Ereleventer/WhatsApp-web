@@ -45,6 +45,8 @@ function Sidebar() {
 
   }
 
+  const getUserFilter = Registered_Users.find((user) => user.nickname === currentUserLoginNickName);
+
 
   return (
 
@@ -93,7 +95,9 @@ function Sidebar() {
              value={newContact}
              onChange={(e) => setNewContact(e.target.value)}
               >
-                {Registered_Users.map((Registered_Users) => {
+                {
+                Registered_Users.filter(Registered_Users => Registered_Users.nickname !== getUserFilter.nickname)
+                .map((Registered_Users) => {
                 return (
                   <option>{Registered_Users.nickname}</option>
                );
