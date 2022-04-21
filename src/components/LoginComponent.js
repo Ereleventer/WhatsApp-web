@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form, Alert } from "react-bootstrap";
-import { Users } from "../localDataBase";
+import { Registered_Users } from "../localDataBase";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
@@ -33,7 +33,7 @@ export default function LoginComponent() {
   function validationUser(event) {
     event.preventDefault();
     //getUser is a boolean that hold true if the username that the user write is in the data base, and false otherwise.
-    const getUser = Users.find((user) => user.username === username);
+    const getUser = Registered_Users.find((user) => user.username === username);
     //if the username is in the data base and the password that the user write is match to the user name, so navigate to chat page
     if (getUser && getUser.password === password) {
       setCurrentUser(getUser);

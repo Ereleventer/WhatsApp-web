@@ -13,7 +13,7 @@ import contacts from "./data/contacts";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
-import { Users } from "./localDataBase";
+import { Registered_Users } from "./localDataBase";
 import { users } from "./data/contacts";
 
 function Chat() {
@@ -55,7 +55,7 @@ function Chat() {
   };
 
   //check which user is loggin so we can display his nickname
-  let userToDisplay = Users.find(
+  let userToDisplay = Registered_Users.find(
     (user) => user.username === currentUser.username
   );
 
@@ -79,6 +79,7 @@ function Chat() {
         <img src={getUser.pic} className="chatAvatar" />
         <div className="chat_headerInfo">
           <h3> {getUser.name} </h3>
+          <p>{getUser.last_seen}</p>
         </div>
 
         <div className="chat_headerRight"></div>
