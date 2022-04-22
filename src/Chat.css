@@ -154,3 +154,8 @@
     margin-top: 10px;
     margin-right: 30px;
 }
+
+.input_photo {
+    max-width: 300px;
+    max-height: 300px;
+}
