@@ -5,6 +5,11 @@ import "./Sidebar";
 import contacts from "./data/contacts";
 import Chat from "./Chat";
 
+// function displayMessage() {
+//   const message = getUser["messages"][getUser["messages"].length - 1].content;
+//   return message;
+// }
+
 function SidebarChat(props) {
   const [seed, setSeed] = useState("");
   const  [setUsername] = React.useState("");

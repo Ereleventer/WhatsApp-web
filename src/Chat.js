@@ -32,8 +32,7 @@ function Chat() {
   const [locationShow, setShowLocation] = useState(false);
   const handleCloseLo = () => setShowLocation(false);
   const handleShowLo = () => setShowLocation(true);
-  const [, updateState] = React.useState();
-
+  const [pic, setPic] = React.useState(null);
   const inputFile = useRef(null);
 
   const { currentUser } = useAuth();
@@ -56,6 +55,20 @@ function Chat() {
       });
     }
     setInput("");
+  };
+
+  const UrlImg = (e) => {
+    setPic(URL.createObjectURL(e.target.files[0]));
+  };
+
+  const setImg = () => {
+    const ID = location.pathname.split("/").pop();
+
+    const user = users.find((user) => user.ID === Number(ID));
+
+    user.messages.push({ content: pic, time: Date.now() });
+
+    setShowPic(false);
   };
 
   //check which user is loggin so we can display his nickname
@@ -167,14 +180,14 @@ function Chat() {
             <Modal.Body>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Add Image from your Computer</Form.Label>
-                <Form.Control type="file" multiple accept="image/*" />
+                <Form.Control type="file" onChange={UrlImg} src={pic} />
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Button variant="primary" onClick={handleClose}>
+              <Button variant="primary" onClick={setImg}>
                 Save Changes
               </Button>
             </Modal.Footer>
