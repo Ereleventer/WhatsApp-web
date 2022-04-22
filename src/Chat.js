@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Video } from "react";
 import "./Chat.css";
 import chatAvatar from "./pictures/pic2-woman.jpg";
 import fileIcon from "./pictures/file_icon.png";
@@ -18,6 +18,7 @@ import { users } from "./data/contacts";
 import useRecorder from "./useRecorder";
 
 
+
 function Chat() {
   //handle popup windows - all dropdown options (picture,video,voice and location)
   const [pictureShow, setShowPic] = useState(false);
@@ -33,6 +34,8 @@ function Chat() {
   const handleCloseLo = () => setShowLocation(false);
   const handleShowLo = () => setShowLocation(true);
   const [pic, setPic] = React.useState(null);
+  const [vid, setVid] = React.useState(null);
+
   const inputFile = useRef(null);
 
   const { currentUser } = useAuth();
@@ -62,6 +65,9 @@ function Chat() {
     setPic(URL.createObjectURL(e.target.files[0]));
   };
 
+  const UrlVid = (e) => {
+    setVid(URL.createObjectURL(e.target.files[0]));
+  };
   const setImg = () => {
     const ID = location.pathname.split("/").pop();
 
@@ -77,6 +83,23 @@ function Chat() {
     setShowPic(false);
   };
 
+  const setVideo = () => {
+    const ID = location.pathname.split("/").pop();
+
+    const user = users.find((user) => user.ID === Number(ID));
+    console.log("########");
+    console.log(vid);
+    console.log("########");
+
+    user.messages.push({ 
+      content: vid, 
+      time: today.getHours() + ':' + today.getMinutes(),
+      type: "vid",
+      sender: userToDisplay.nickname
+     });
+
+    setShowVideo(false);
+  };
   //check which user is loggin so we can display his nickname
   let userToDisplay = Registered_Users.find(
     (user) => user.username === currentUser.username
@@ -120,8 +143,13 @@ function Chat() {
                   {message.sender}
                    </span>
                    {message.type === "text" ? <div>
-              {message.content} </div> :
-              <img class="img" src={message.content} /> }
+              {message.content} </div> : <>
+              {message.type === "vid" ? <div> 
+              <video width="320" height="240" controls src={message.content}>
+             </video>
+              </div> :
+              <img class="img" src={message.content} className='input_photo'/>  }
+              </> }
               <span className="chat_timestamp">
                 {message.time}
                 {}
@@ -211,14 +239,14 @@ function Chat() {
             <Modal.Body>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Add Video from your Computer</Form.Label>
-                <Form.Control type="file" multiple accept="video/*" />
+                <Form.Control type="file"  onChange={UrlVid} multiple accept="video/*" />
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleCloseVid}>
                 Close
               </Button>
-              <Button variant="primary" onClick={handleCloseVid}>
+              <Button variant="primary" onClick={setVideo}>
               Send
               </Button>
             </Modal.Footer>
