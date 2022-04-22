@@ -20,11 +20,14 @@ export let users = [
         content: "hey Erel how are you?",
         sender: "Erel",
         time: "08:11",
+        type: "text",
+
       },
       {
         content: "you looks good today!",
         sender: "Erel",
         time: "16:45",
+        type: "text",
       },
     ],
   },
@@ -39,11 +42,15 @@ export let users = [
         content: "hello Shahar",
         sender:  "Shahar",
         time: "09:17",
+        type: "text",
+
       },
       {
         content: "You are the most beautiful man I ever saw!",
         sender:  "Shahar",
         time: "09:15",
+        type: "text",
+
       },
     ],
   },
@@ -58,11 +65,15 @@ export let users = [
         content: "whatsapppppp",
         sender: "Alon",
         time: "15:15",
+        type: "text",
+
       },
       {
         content: "all good?",
         sender: "Alon",
         time: "09:15",
+        type: "text",
+
       },
     ],
   },
@@ -78,11 +89,15 @@ export let users = [
         content: "Hey Iris, how's Tommy?",
         sender: "Iris",
         time: "11:30",
+        type: "text",
+
       },
       {
         content: "Or should I say Toytoy?",
         sender: "Iris",
         time: "19:16",
+        type: "text",
+
       },
     ],
   },
@@ -97,11 +112,15 @@ export let users = [
         content: "Hey, how are you Arad?",
         sender: "Arad",
         time: "20:12",
+        type: "text",
+
       },
       {
         content: "You are Erel's little brother right?",
         sender: "Arad",
         time: "07:18",
+        type: "text",
+
       },
     ],
   },

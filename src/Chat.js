@@ -50,13 +50,14 @@ function Chat() {
       user.messages.push({
         content: input,
        time: today.getHours() + ':' + today.getMinutes(),
-      // time: today,
+       type: "text",
         sender: userToDisplay.nickname
       });
     }
     setInput("");
   };
 
+  const today = new Date();
   const UrlImg = (e) => {
     setPic(URL.createObjectURL(e.target.files[0]));
   };
@@ -66,7 +67,12 @@ function Chat() {
 
     const user = users.find((user) => user.ID === Number(ID));
 
-    user.messages.push({ content: pic, time: Date.now() });
+    user.messages.push({ 
+      content: pic, 
+      time: today.getHours() + ':' + today.getMinutes(),
+      type: "pic",
+      sender: userToDisplay.nickname
+     });
 
     setShowPic(false);
   };
@@ -113,7 +119,9 @@ function Chat() {
               <span className= {`chat_name ${message.sender === currentUser.nickname && "chat_reciever_name"}`}>
                   {message.sender}
                    </span>
-              {message.content}
+                   {message.type === "text" ? <div>
+              {message.content} </div> :
+              <img class="img" src={message.content} /> }
               <span className="chat_timestamp">
                 {message.time}
                 {}
@@ -188,7 +196,7 @@ function Chat() {
                 Close
               </Button>
               <Button variant="primary" onClick={setImg}>
-                Save Changes
+                Send
               </Button>
             </Modal.Footer>
           </Modal>
@@ -211,7 +219,7 @@ function Chat() {
                 Close
               </Button>
               <Button variant="primary" onClick={handleCloseVid}>
-                Save Changes
+              Send
               </Button>
             </Modal.Footer>
           </Modal>
@@ -234,7 +242,7 @@ function Chat() {
                 Close
               </Button>
               <Button variant="primary" onClick={handleCloseLo}>
-                Save Changes
+              Send
               </Button>
             </Modal.Footer>
           </Modal>
@@ -271,7 +279,7 @@ function Chat() {
                 Close
               </Button>
               <Button variant="primary" onClick={handleCloseVoice}>
-                Save Changes
+              Send
               </Button>
             </Modal.Footer>
           </Modal>
