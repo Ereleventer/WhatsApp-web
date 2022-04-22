@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     border-right: 1px solid lightgray;
+    
 }
 
 .sidebar_header {
@@ -17,10 +18,11 @@
     font-size: 20px;
     margin-top: 30px;
     font-weight: bold;
-    margin-left: -190px;
+    margin-left: -150px;
     text-decoration: none;
     color: #686868;
     text-shadow: 2px 3px #E4E4E4;
+    
 }
 
 .sidebar_headerRight{
@@ -40,7 +42,7 @@
 .avatar{
     margin-top: 10px;
     margin-left: 10px;
-    height: 10vh;
+    height: 12vh;
     width: 5vw;
 }
 

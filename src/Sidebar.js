@@ -14,6 +14,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 import { users } from "./data/contacts";
 import {messages} from "./data/newContantMessages"
 
+
 function Sidebar() {
  
 
@@ -24,26 +25,41 @@ function Sidebar() {
   const [newContact, setNewContact] = React.useState("");
   const ID = users[users.length-1].ID + 1;
   const last_seen = "online";
+  const [onErorrUsername, setOnErrorUsername] = React.useState(false);
+
   const handleNewChat = () =>{
-    console.log(newContact);
     const getUser = Registered_Users.find((user) => user.nickname === newContact);
-    console.log(getUser);
     const pic = getUser.pic;
-    console.log("#########");
-  console.log(getUser.nickname);
-  console.log("#####");
-   console.log(newContact);
-   const name = getUser.nickname;
-   console.log("#######!!!!!##");
-    console.log(users[users.length-1]);
-    console.log("#######!!!!!##");
-
-   console.log({ ID,name,pic,last_seen,messages })
-   users.push({ ID,name,pic,last_seen,messages });
-   setShowPic(false);
-
-
+    const name = getUser.nickname; 
+    const getUserfromContacts = users.find((user) => user.name === newContact);
+    if (getUserfromContacts) {
+      setOnErrorUsername(true);
+      return;
+    }
+    console.log("###########");
+    console.log(getUserfromContacts);
+    console.log("###########");
+    console.log({ ID,name,pic,last_seen,messages })
+    users.push({ ID,name,pic,last_seen,messages });
+    setShowPic(false);
   }
+
+
+  const returnAlertErrorUsername = () => {
+    return (
+      <Alert
+        variant="danger"
+        onClose={() => setOnErrorUsername(false)}
+        dismissible
+      >
+        <Alert.Heading style={{ fontSize: "10px" }}>
+          Chat Already exist! choose another contact.
+        </Alert.Heading>
+      </Alert>
+    );
+  };
+
+  const getUserFilter = Registered_Users.find((user) => user.nickname === currentUserLoginNickName);
 
 
   return (
@@ -61,7 +77,7 @@ function Sidebar() {
     <div className="sidebar">
       <div className="sidebar_header">
         <img src={currentUserLoginPic} className="avatar" />
-        <h1>{currentUserLoginNickName}</h1>
+        <h1> Hello {currentUserLoginNickName}!</h1>
         <div className="sidebar_headerRight">
           <button
             onClick={handleShow}
@@ -93,13 +109,15 @@ function Sidebar() {
              value={newContact}
              onChange={(e) => setNewContact(e.target.value)}
               >
-                {Registered_Users.map((Registered_Users) => {
+                {
+                Registered_Users.filter(Registered_Users => Registered_Users.nickname !== getUserFilter.nickname)
+                .map((Registered_Users) => {
                 return (
                   <option>{Registered_Users.nickname}</option>
                );
               })}
             </Form.Control>
-
+            {onErorrUsername && returnAlertErrorUsername()}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
