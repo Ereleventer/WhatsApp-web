@@ -4,6 +4,11 @@ import { Link } from "react-router-dom";
 import "./Sidebar";
 import contacts from "./data/contacts";
 
+// function displayMessage() {
+//   const message = getUser["messages"][getUser["messages"].length - 1].content;
+//   return message;
+// }
+
 function SidebarChat(props) {
   const [seed, setSeed] = useState("");
   //locate the chat ID by the end of the URL.
@@ -22,7 +27,7 @@ function SidebarChat(props) {
         <img src={getUser.pic} className="avatarChat" />
         <div className="sidebarChat_info">
           <h2>{getUser.name}</h2>
-          <p>{getUser["messages"][getUser["messages"].length-1].content}</p>
+          <p>{getUser["messages"][getUser["messages"].length - 1].content}</p>
         </div>
       </div>
     </Link>
