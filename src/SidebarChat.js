@@ -15,8 +15,8 @@ function SidebarChat(props) {
   const getUserName = contacts.find((user) => user.ID == lastSegment);
   const getUser = contacts.find((user) => user.ID === props.ID);
 
-  const latestMesasge = getUser["messages"][getUser["messages"].length-1].content
-
+  const latestMesasge = getUser["messages"][getUser["messages"].length-1]
+  console.log(latestMesasge);
   return (
     /*
       link to the relevant chat ID in order to select the currect chat.
@@ -27,10 +27,7 @@ function SidebarChat(props) {
         <img src={getUser.pic} className="avatarChat" />
         <div className="sidebarChat_info">
           <h2>{getUser.name}</h2>
-
-            <p>{getUser["messages"][getUser["messages"].length-1].content}</p> 
-    
-         
+                <p>{latestMesasge.content}</p>
         </div>
       </div>
     </Link>
