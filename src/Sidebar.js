@@ -14,6 +14,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 import { users } from "./data/contacts";
 import {messages} from "./data/newContantMessages"
 
+
 function Sidebar() {
  
 
@@ -42,6 +43,7 @@ function Sidebar() {
     users.push({ ID,name,pic,last_seen,messages });
     setShowPic(false);
   }
+
 
   const returnAlertErrorUsername = () => {
     return (
@@ -75,7 +77,7 @@ function Sidebar() {
     <div className="sidebar">
       <div className="sidebar_header">
         <img src={currentUserLoginPic} className="avatar" />
-        <h1>{currentUserLoginNickName}</h1>
+        <h1> Hello {currentUserLoginNickName}!</h1>
         <div className="sidebar_headerRight">
           <button
             onClick={handleShow}

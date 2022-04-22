@@ -45,12 +45,14 @@ function Chat() {
   const sendMessage = (e) => {
     e.preventDefault();
     const ID = location.pathname.split("/").pop();
-
+    const today = new Date();
     const user = users.find((user) => user.ID === Number(ID));
     if (input != "") {
       user.messages.push({
         content: input,
-        time: Date.now(),
+       time: today.getHours() + ':' + today.getMinutes(),
+      // time: today,
+        sender: userToDisplay.nickname
       });
     }
     setInput("");
@@ -92,12 +94,15 @@ function Chat() {
           return (
             <p
               key={message.time}
-              className={`chat_message ${true && "chat_reciever"}`}
+              className={`chat_message ${message.sender === currentUser.nickname && "chat_reciever"}`}
             >
-              <span className="chat_name">{userToDisplay.nickname} </span>
+                
+              <span className= {`chat_name ${message.sender === currentUser.nickname && "chat_reciever_name"}`}>
+                  {message.sender}
+                   </span>
               {message.content}
               <span className="chat_timestamp">
-                {getUser["messages"][0].time}
+                {message.time}
                 {}
               </span>
             </p>

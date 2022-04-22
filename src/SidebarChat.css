@@ -31,8 +31,16 @@
     color: black;
     text-decoration: none;
     text-shadow: 2px 2px #E2E7EE;
+}
 
-
+.sidebarChat_info > h1 {
+    font-size: 12px;
+    margin-right: auto;
+    color: rgb(121, 115, 115);
+    text-decoration: none;
+    text-shadow: 2px 2px #E2E7EE;
+    margin-left: 330px;
+    margin-top: -135px;
 }
 
 .avatarChat{
