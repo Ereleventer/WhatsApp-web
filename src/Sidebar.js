@@ -12,7 +12,6 @@ import { currentUserLoginNickName } from "./components/LoginComponent";
 import Modal from "react-bootstrap/Modal";
 import { Form, Button, Alert } from "react-bootstrap";
 import { users } from "./data/contacts";
-import { messages } from "./data/newContantMessages";
 
 function Sidebar() {
   //handle popup of create new chat
@@ -38,6 +37,20 @@ function Sidebar() {
     console.log("###########");
     console.log(getUserfromContacts);
     console.log("###########");
+    var messages = [
+      {
+        content: "Welcome to our chat!",
+        sender: name,
+        time: "20:12",
+        type: "text", 
+      },
+      {
+        content: "Welcome!!",
+        sender: name,
+        time: "23:50",
+        type: "text",
+      }
+  ]
     console.log({ ID, name, pic, last_seen, messages });
     users.push({ ID, name, pic, last_seen, messages });
     setShowPic(false);
@@ -92,6 +105,7 @@ function Sidebar() {
       <div className="sidebar_chats">
         {users.map((users) => {
           return <SidebarChat ID={users.ID} />;
+          
         })}
       </div>
 
