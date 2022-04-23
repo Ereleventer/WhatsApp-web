@@ -100,6 +100,55 @@ function Chat() {
 
     setShowVideo(false);
   };
+
+  const setAudio = () => {
+    const ID = location.pathname.split("/").pop();
+
+    const user = users.find((user) => user.ID === Number(ID));
+    console.log("########");
+    console.log(audioURL);
+    console.log("########");
+
+    user.messages.push({ 
+      content: audioURL, 
+      time: today.getHours() + ':' + today.getMinutes(),
+      type: "audio",
+      sender: userToDisplay.nickname
+     });
+
+    setShowVoice(false);
+  };
+  let returnedMessage;
+
+  function messageType (message) {
+  if (message.type == "text") {
+    return ( <div>{message.content}</div> )
+    }
+  else {
+    if (message.type == "vid") {
+      return ( <div>
+        <video width="320" height="240" controls src={message.content}>
+             </video>
+             </div> )
+      }
+      else{
+          if (message.type == "audio") {
+            return ( <div>
+              <audio width="320" height="240" controls src={message.content}>
+                  </audio>
+                  </div> )
+            }
+            else {
+              return (
+              <img class="img" src={message.content} className='input_photo'/>
+              )
+            }
+      }
+     
+  }
+};
+
+
   //check which user is loggin so we can display his nickname
   let userToDisplay = Registered_Users.find(
     (user) => user.username === currentUser.username
@@ -142,14 +191,7 @@ function Chat() {
               <span className= {`chat_name ${message.sender === currentUser.nickname && "chat_reciever_name"}`}>
                   {message.sender}
                    </span>
-                   {message.type === "text" ? <div>
-              {message.content} </div> : <>
-              {message.type === "vid" ? <div> 
-              <video width="320" height="240" controls src={message.content}>
-             </video>
-              </div> :
-              <img class="img" src={message.content} className='input_photo'/>  }
-              </> }
+              {messageType(message)}
               <span className="chat_timestamp">
                 {message.time}
                 {}
@@ -216,7 +258,7 @@ function Chat() {
             <Modal.Body>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Add Image from your Computer</Form.Label>
-                <Form.Control type="file" onChange={UrlImg} src={pic} />
+                <Form.Control type="file" onChange={UrlImg} src={pic} accept="image/*" />
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
@@ -239,7 +281,7 @@ function Chat() {
             <Modal.Body>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Add Video from your Computer</Form.Label>
-                <Form.Control type="file"  onChange={UrlVid} multiple accept="video/*" />
+                <Form.Control type="file"  onChange={UrlVid} accept="video/*" />
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
@@ -299,6 +341,7 @@ function Chat() {
                   multiple
                   accept="video/*"
                   style={{display:"none"}}
+                  onChange={useRecorder.handleData}
                 />
               </Form.Group>
             </Modal.Body>
@@ -306,7 +349,7 @@ function Chat() {
               <Button variant="secondary" onClick={handleCloseVoice}>
                 Close
               </Button>
-              <Button variant="primary" onClick={handleCloseVoice}>
+              <Button variant="primary" onClick={setAudio}>
               Send
               </Button>
             </Modal.Footer>
