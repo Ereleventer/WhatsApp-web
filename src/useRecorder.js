@@ -32,13 +32,6 @@ const useRecorder = () => {
       setAudioURL(URL.createObjectURL(e.data));
       console.log("eeeeeeeee");
       console.log(audioURL);
-      e.preventDefault();
-      const ID = location.pathname.split("/").pop();
-      const user = users.find((user) => user.ID === Number(ID));
-      user.messages.push({
-        content: audioURL,
-        time: Date.now(),
-      });
     };
 
     recorder.addEventListener("dataavailable", handleData);
