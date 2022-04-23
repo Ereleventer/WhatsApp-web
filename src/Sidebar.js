@@ -12,25 +12,24 @@ import { currentUserLoginNickName } from "./components/LoginComponent";
 import Modal from "react-bootstrap/Modal";
 import { Form, Button, Alert } from "react-bootstrap";
 import { users } from "./data/contacts";
-import {messages} from "./data/newContantMessages"
-
+import { messages } from "./data/newContantMessages";
 
 function Sidebar() {
- 
-
   //handle popup of create new chat
   const [pictureShow, setShowPic] = useState(false);
   const handleClose = () => setShowPic(false);
   const handleShow = () => setShowPic(true);
   const [newContact, setNewContact] = React.useState("");
-  const ID = users[users.length-1].ID + 1;
+  const ID = users[users.length - 1].ID + 1;
   const last_seen = "online";
   const [onErorrUsername, setOnErrorUsername] = React.useState(false);
 
-  const handleNewChat = () =>{
-    const getUser = Registered_Users.find((user) => user.nickname === newContact);
+  const handleNewChat = () => {
+    const getUser = Registered_Users.find(
+      (user) => user.nickname === newContact
+    );
     const pic = getUser.pic;
-    const name = getUser.nickname; 
+    const name = getUser.nickname;
     const getUserfromContacts = users.find((user) => user.name === newContact);
     if (getUserfromContacts) {
       setOnErrorUsername(true);
@@ -39,11 +38,10 @@ function Sidebar() {
     console.log("###########");
     console.log(getUserfromContacts);
     console.log("###########");
-    console.log({ ID,name,pic,last_seen,messages })
-    users.push({ ID,name,pic,last_seen,messages });
+    console.log({ ID, name, pic, last_seen, messages });
+    users.push({ ID, name, pic, last_seen, messages });
     setShowPic(false);
-  }
-
+  };
 
   const returnAlertErrorUsername = () => {
     return (
@@ -59,11 +57,11 @@ function Sidebar() {
     );
   };
 
-  const getUserFilter = Registered_Users.find((user) => user.nickname === currentUserLoginNickName);
-
+  const getUserFilter = Registered_Users.find(
+    (user) => user.nickname === currentUserLoginNickName
+  );
 
   return (
-
     /*
       header - includes the username and pic that logged into our app (need to add connection between login page and this data)
       LoggedInUser should be replaced with the logged in username.
@@ -77,8 +75,9 @@ function Sidebar() {
     <div className="sidebar">
       <div className="sidebar_header">
         <img src={currentUserLoginPic} className="avatar" />
-        <h1> Hello {currentUserLoginNickName}!</h1>
+
         <div className="sidebar_headerRight">
+          <h1> {currentUserLoginNickName}</h1>
           <button
             onClick={handleShow}
             data-toggle="tooltip"
@@ -91,11 +90,9 @@ function Sidebar() {
         </div>
       </div>
       <div className="sidebar_chats">
-      {users.map((users) => {
-          return (
-        <SidebarChat ID={users.ID} />
-        );
-      })}
+        {users.map((users) => {
+          return <SidebarChat ID={users.ID} />;
+        })}
       </div>
 
       <Modal className="new_chat" show={pictureShow} onHide={handleClose}>
@@ -104,17 +101,19 @@ function Sidebar() {
         </Modal.Header>
         <Modal.Body>
           <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label className="new_chat_body"><p>Select the Contact Name</p></Form.Label>
-            <Form.Control as="select" 
-             value={newContact}
-             onChange={(e) => setNewContact(e.target.value)}
-              >
-                {
-                Registered_Users.filter(Registered_Users => Registered_Users.nickname !== getUserFilter.nickname)
-                .map((Registered_Users) => {
-                return (
-                  <option>{Registered_Users.nickname}</option>
-               );
+            <Form.Label className="new_chat_body">
+              <p>Select the Contact Name</p>
+            </Form.Label>
+            <Form.Control
+              as="select"
+              value={newContact}
+              onChange={(e) => setNewContact(e.target.value)}
+            >
+              {Registered_Users.filter(
+                (Registered_Users) =>
+                  Registered_Users.nickname !== getUserFilter.nickname
+              ).map((Registered_Users) => {
+                return <option>{Registered_Users.nickname}</option>;
               })}
             </Form.Control>
             {onErorrUsername && returnAlertErrorUsername()}
