@@ -17,8 +17,8 @@
     display: flex;
     gap: 20px;
     background-color: #ededed;
-    height: 90vh;
-    width: 40vw;
+    height: 70vh;
+    width: 35vw;
     box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75) ;
 
     background-image: url("../pictures/background.png");

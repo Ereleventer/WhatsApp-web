@@ -5,29 +5,29 @@ import avatar9 from "./pictures/avatar9.png";
 
 export let Registered_Users = new Array(
   {
-    username: "ShaharShaki@gmail.com",
-    password: "1111",
-    nickname: "shahar10",
+    username: "yotam",
+    password: "7894",
+    nickname: "Yotam",
     pic: avatar6,
   },
 
   {
-    username: "erel",
-    password: "1111",
-    nickname: "erel10",
+    username: "rotem",
+    password: "5567",
+    nickname: "Rotem",
     pic: avatar7,
   },
 
   {
-    username: "1",
-    password: "1",
-    nickname: "1",
+    username: "david",
+    password: "abcd",
+    nickname: "David",
     pic: avatar8,
   },
   {
     username: "test",
     password: "12",
-    nickname: "test",
+    nickname: "Test",
     pic: avatar9,
   }
 );

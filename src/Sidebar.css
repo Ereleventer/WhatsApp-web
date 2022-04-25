@@ -30,6 +30,8 @@
     align-items: center;
     justify-content: space-between;
     min-width: 5vw;
+    text-shadow: 5px 3px #E4E4E4;
+    
 }
 
 .sidebar_chats {

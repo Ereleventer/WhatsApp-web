@@ -159,3 +159,11 @@
     max-width: 300px;
     max-height: 300px;
 }
+
+
+.mb-4 {
+    font-size: 15px;
+    text-decoration: none;
+    color: black;
+    font-family: 'Orienta', sans-serif;
+  }

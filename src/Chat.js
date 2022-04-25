@@ -87,10 +87,7 @@ function Chat() {
     const ID = location.pathname.split("/").pop();
 
     const user = users.find((user) => user.ID === Number(ID));
-    console.log("########");
-    console.log(vid);
-    console.log("########");
-
+  
     user.messages.push({ 
       content: vid, 
       time: today.getHours() + ':' + today.getMinutes(),
@@ -105,10 +102,7 @@ function Chat() {
     const ID = location.pathname.split("/").pop();
 
     const user = users.find((user) => user.ID === Number(ID));
-    console.log("########");
-    console.log(audioURL);
-    console.log("########");
-
+   
     user.messages.push({ 
       content: audioURL, 
       time: today.getHours() + ':' + today.getMinutes(),
@@ -162,14 +156,6 @@ function Chat() {
   let [audioURL, isRecording, startRecording, stopRecording] = useRecorder();
 
   return (
-    /*
-    first part - className="chat_header" - chat header - include the contact name and picture.
-    second part - className="chat_body" - is the chat body that includes the messages and the messages design
-    LoggedInUser should be replaced with the logged in username.
-    time should be replaced with timestamp from the db
-    third part - className="chat_footer" - its the bottom input - 
-    the dropdowns and the message input row.
-    */
     <div className="chat">
       <div className="chat_header">
         <img src={getUser.pic} className="chatAvatar" />
@@ -256,7 +242,7 @@ function Chat() {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form.Group controlId="formFile" className="mb-3">
+              <Form.Group controlId="formFile" className="mb-4">
                 <Form.Label>Add Image from your Computer</Form.Label>
                 <Form.Control type="file" onChange={UrlImg} src={pic} accept="image/*" />
               </Form.Group>
@@ -279,7 +265,7 @@ function Chat() {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form.Group controlId="formFile" className="mb-3">
+              <Form.Group controlId="formFile" className="mb-4">
                 <Form.Label>Add Video from your Computer</Form.Label>
                 <Form.Control type="file"  onChange={UrlVid} accept="video/*" />
               </Form.Group>
@@ -302,9 +288,8 @@ function Chat() {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form.Group controlId="formFile" className="mb-3">
-                <Form.Label>Add Location</Form.Label>
-                <Form.Control type="file" multiple accept="video/*" />
+              <Form.Group controlId="formFile" className="mb-4">
+                <Form.Label>in development :) </Form.Label>
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
