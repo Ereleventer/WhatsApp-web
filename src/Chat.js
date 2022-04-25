@@ -167,12 +167,16 @@ function Chat() {
         <div className="chat_headerRight"></div>
       </div>
       <div className="chat_body">
-        {getUser.messages.map((message) => {
+      {getUser.messages.filter(
+                // (getUser.messages) => {
+                  message => 
+                  getUser.ID !== lastSegment
+              )
+        .map((message) => {
           return (
             <p
-              key={message.time}
-              className={`chat_message ${message.sender === currentUser.nickname && "chat_reciever"}`}
-            >
+               className={`chat_message ${message.sender === currentUser.nickname && "chat_reciever"}`}
+            > 
                 
               <span className= {`chat_name ${message.sender === currentUser.nickname && "chat_reciever_name"}`}>
                   {message.sender}
