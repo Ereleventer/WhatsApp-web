@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-import { users } from "./data/contacts";
-import { useLocation } from "react-router";
 
 
 const useRecorder = () => {
   const [audioURL, setAudioURL] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [recorder, setRecorder] = useState(null);
-  const location = useLocation();
 
 
   useEffect(() => {
@@ -30,8 +27,7 @@ const useRecorder = () => {
     // Obtain the audio when ready.
     const handleData = (e) => {
       setAudioURL(URL.createObjectURL(e.data));
-      console.log("eeeeeeeee");
-      console.log(audioURL);
+     
     };
 
     recorder.addEventListener("dataavailable", handleData);

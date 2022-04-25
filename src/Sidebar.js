@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
-import avatar from "./pictures/avatar.jpg";
 import chatIcon from "./pictures/chat_icon.jpg";
 import SidebarChat from "./SidebarChat";
 import contacts from "./data/contacts";
@@ -34,9 +33,7 @@ function Sidebar() {
       setOnErrorUsername(true);
       return;
     }
-    console.log("###########");
-    console.log(getUserfromContacts);
-    console.log("###########");
+   
     var messages = [
       {
         content: "Welcome to our chat!",
@@ -51,7 +48,6 @@ function Sidebar() {
         type: "text",
       }
   ]
-    console.log({ ID, name, pic, last_seen, messages });
     users.push({ ID, name, pic, last_seen, messages });
     setShowPic(false);
   };
@@ -75,16 +71,6 @@ function Sidebar() {
   );
 
   return (
-    /*
-      header - includes the username and pic that logged into our app (need to add connection between login page and this data)
-      LoggedInUser should be replaced with the logged in username.
-      avatar should be replaced with the pic of the user.
-
-       className="sidebar_headerRight" - is the add chat option.
-
-        className="sidebar_chats"> is including all the chats that are in the code - 
-        we need to figure out how to add new chats there.
-      */
     <div className="sidebar">
       <div className="sidebar_header">
         <img src={currentUserLoginPic} className="avatar" />

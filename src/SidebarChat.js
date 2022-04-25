@@ -11,9 +11,6 @@ import Chat from "./Chat";
 // }
 
 function SidebarChat(props) {
-  const [seed, setSeed] = useState("");
-  const  [setUsername] = React.useState("");
-
   //locate the chat ID by the end of the URL.
   var parts = window.location.href.split("/");
   var lastSegment = parts.pop() || parts.pop(); // handle potential trailing slash
@@ -21,7 +18,6 @@ function SidebarChat(props) {
   const getUser = contacts.find((user) => user.ID === props.ID);
 
   const latestMesasge = getUser["messages"][getUser["messages"].length-1]
-  console.log(latestMesasge);
   return (
     /*
       link to the relevant chat ID in order to select the currect chat.
