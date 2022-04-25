@@ -63,7 +63,6 @@ export default function LoginComponent() {
     //first we wrap the all page with the css we wrote. every <Form.Group> is a place on the screen where the user can write his details.
     <div className="login-page">
       <div className="login-box">
-        <h1>Welcome to our Chat App!</h1>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Username</Form.Label>
@@ -97,9 +96,13 @@ export default function LoginComponent() {
           </div>
           <div className="register">
             <Link to="/register">
-                <Button variant="primary" type="button" className="register_button">
-              Register
-            </Button>
+              <Button
+                variant="primary"
+                type="button"
+                className="register_button"
+              >
+                Register
+              </Button>
             </Link>
           </div>
         </Form>
