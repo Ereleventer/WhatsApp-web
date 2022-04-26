@@ -17,8 +17,6 @@ import { Registered_Users } from "./localDataBase";
 import { users } from "./data/contacts";
 import useRecorder from "./useRecorder";
 
-
-
 function Chat() {
   //handle popup windows - all dropdown options (picture,video,voice and location)
   const [pictureShow, setShowPic] = useState(false);
@@ -36,6 +34,8 @@ function Chat() {
   const [pic, setPic] = React.useState(null);
   const [vid, setVid] = React.useState(null);
 
+  const [scrollTop, setScrollTop] = useState(1500);
+
   const inputFile = useRef(null);
 
   const { currentUser } = useAuth();
@@ -52,12 +52,18 @@ function Chat() {
     if (input != "") {
       user.messages.push({
         content: input,
-       time: today.getHours() + ':' + today.getMinutes(),
-       type: "text",
-        sender: userToDisplay.nickname
+        time: today.getHours() + ":" + today.getMinutes(),
+        type: "text",
+        sender: userToDisplay.nickname,
       });
     }
     setInput("");
+    setTimeout(() => {
+      setScrollTop(2200);
+      var ObjDiv = document.getElementById("scroll");
+      ObjDiv.scrollTop = ObjDiv.scrollHeight;
+      ObjDiv.scroll({ top: ObjDiv.scrollHeight, behavior: "smooth" });
+    }, 1);
   };
 
   const today = new Date();
@@ -73,12 +79,12 @@ function Chat() {
 
     const user = users.find((user) => user.ID === Number(ID));
 
-    user.messages.push({ 
-      content: pic, 
-      time: today.getHours() + ':' + today.getMinutes(),
+    user.messages.push({
+      content: pic,
+      time: today.getHours() + ":" + today.getMinutes(),
       type: "pic",
-      sender: userToDisplay.nickname
-     });
+      sender: userToDisplay.nickname,
+    });
 
     setShowPic(false);
   };
@@ -87,13 +93,13 @@ function Chat() {
     const ID = location.pathname.split("/").pop();
 
     const user = users.find((user) => user.ID === Number(ID));
-  
-    user.messages.push({ 
-      content: vid, 
-      time: today.getHours() + ':' + today.getMinutes(),
+
+    user.messages.push({
+      content: vid,
+      time: today.getHours() + ":" + today.getMinutes(),
       type: "vid",
-      sender: userToDisplay.nickname
-     });
+      sender: userToDisplay.nickname,
+    });
 
     setShowVideo(false);
   };
@@ -102,46 +108,53 @@ function Chat() {
     const ID = location.pathname.split("/").pop();
 
     const user = users.find((user) => user.ID === Number(ID));
-   
-    user.messages.push({ 
-      content: audioURL, 
-      time: today.getHours() + ':' + today.getMinutes(),
+
+    user.messages.push({
+      content: audioURL,
+      time: today.getHours() + ":" + today.getMinutes(),
       type: "audio",
-      sender: userToDisplay.nickname
-     });
+      sender: userToDisplay.nickname,
+    });
 
     setShowVoice(false);
   };
   let returnedMessage;
 
-  function messageType (message) {
-  if (message.type == "text") {
-    return ( <div>{message.content}</div> )
+  function messageType(message) {
+    if (message.type == "text") {
+      return <div>{message.content}</div>;
+    } else {
+      if (message.type == "vid") {
+        return (
+          <div>
+            <video
+              width="320"
+              height="240"
+              controls
+              src={message.content}
+            ></video>
+          </div>
+        );
+      } else {
+        if (message.type == "audio") {
+          return (
+            <div>
+              <audio
+                width="320"
+                height="240"
+                controls
+                src={message.content}
+              ></audio>
+            </div>
+          );
+        } else {
+          return (
+            <img class="img" src={message.content} className="input_photo" />
+          );
+        }
+      }
     }
-  else {
-    if (message.type == "vid") {
-      return ( <div>
-        <video width="320" height="240" controls src={message.content}>
-             </video>
-             </div> )
-      }
-      else{
-          if (message.type == "audio") {
-            return ( <div>
-              <audio width="320" height="240" controls src={message.content}>
-                  </audio>
-                  </div> )
-            }
-            else {
-              return (
-              <img class="img" src={message.content} className='input_photo'/>
-              )
-            }
-      }
-     
   }
-};
-
 
   //check which user is loggin so we can display his nickname
   let userToDisplay = Registered_Users.find(
@@ -166,29 +179,35 @@ function Chat() {
 
         <div className="chat_headerRight"></div>
       </div>
-      <div className="chat_body">
-      {getUser.messages.filter(
-                // (getUser.messages) => {
-                  message => 
-                  getUser.ID !== lastSegment
-              )
-        .map((message) => {
-          return (
-            <p
-               className={`chat_message ${message.sender === currentUser.nickname && "chat_reciever"}`}
-            > 
-                
-              <span className= {`chat_name ${message.sender === currentUser.nickname && "chat_reciever_name"}`}>
+      <div className="chat_body" oscrollTop={scrollTop} id="scroll">
+        {getUser.messages
+          .filter(
+            // (getUser.messages) => {
+            (message) => getUser.ID !== lastSegment
+          )
+          .map((message) => {
+            return (
+              <p
+                className={`chat_message ${
+                  message.sender === currentUser.nickname && "chat_reciever"
+                }`}
+              >
+                <span
+                  className={`chat_name ${
+                    message.sender === currentUser.nickname &&
+                    "chat_reciever_name"
+                  }`}
+                >
                   {message.sender}
-                   </span>
-              {messageType(message)}
-              <span className="chat_timestamp">
-                {message.time}
-                {}
-              </span>
-            </p>
-          );
-        })}
+                </span>
+                {messageType(message)}
+                <span className="chat_timestamp">
+                  {message.time}
+                  {}
+                </span>
+              </p>
+            );
+          })}
       </div>
       <div className="chat_footer">
         <div
@@ -248,7 +267,12 @@ function Chat() {
             <Modal.Body>
               <Form.Group controlId="formFile" className="mb-4">
                 <Form.Label>Add Image from your Computer</Form.Label>
-                <Form.Control type="file" onChange={UrlImg} src={pic} accept="image/*" />
+                <Form.Control
+                  type="file"
+                  onChange={UrlImg}
+                  src={pic}
+                  accept="image/*"
+                />
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
@@ -271,7 +295,7 @@ function Chat() {
             <Modal.Body>
               <Form.Group controlId="formFile" className="mb-4">
                 <Form.Label>Add Video from your Computer</Form.Label>
-                <Form.Control type="file"  onChange={UrlVid} accept="video/*" />
+                <Form.Control type="file" onChange={UrlVid} accept="video/*" />
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
@@ -279,7 +303,7 @@ function Chat() {
                 Close
               </Button>
               <Button variant="primary" onClick={setVideo}>
-              Send
+                Send
               </Button>
             </Modal.Footer>
           </Modal>
@@ -301,7 +325,7 @@ function Chat() {
                 Close
               </Button>
               <Button variant="primary" onClick={handleCloseLo}>
-              Send
+                Send
               </Button>
             </Modal.Footer>
           </Modal>
@@ -315,13 +339,21 @@ function Chat() {
             </Modal.Header>
             <Modal.Body>
               <Form.Group controlId="formFile" className="audio">
-                <audio src={audioURL} controls className="audio_recorder"/>
+                <audio src={audioURL} controls className="audio_recorder" />
                 <div className="seperator"></div>
-                <button className="start_record" onClick={startRecording} disabled={isRecording}>
-                    Start recording
+                <button
+                  className="start_record"
+                  onClick={startRecording}
+                  disabled={isRecording}
+                >
+                  Start recording
                 </button>
-                <button className="stop_record" onClick={stopRecording} disabled={!isRecording}>
-                    Stop recording
+                <button
+                  className="stop_record"
+                  onClick={stopRecording}
+                  disabled={!isRecording}
+                >
+                  Stop recording
                 </button>
 
                 <Form.Control
@@ -329,7 +361,7 @@ function Chat() {
                   x-webkit-speech
                   multiple
                   accept="video/*"
-                  style={{display:"none"}}
+                  style={{ display: "none" }}
                   onChange={useRecorder.handleData}
                 />
               </Form.Group>
@@ -339,7 +371,7 @@ function Chat() {
                 Close
               </Button>
               <Button variant="primary" onClick={setAudio}>
-              Send
+                Send
               </Button>
             </Modal.Footer>
           </Modal>

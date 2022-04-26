@@ -5,13 +5,17 @@ the design for the big window
 .login-page {
   top: 50%;
   left: 50%;
-  background-color: #dadbd3;
+  /* background-color: #dadbd3; */
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: black;
+
+  background-image: url("../pictures/background-beige2.jpg");
+  background-repeat: repeat;
+  background-position: center;
 }
 
 /*
@@ -24,14 +28,13 @@ the design for the small window
   display: flex;
   gap: 20px;
   background-color: #ededed;
-  height: 70vh;
-  width: 35vw;
+  height: 86vh;
+  width: 40vw;
   box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75) ;
 
-  background-image: url("../pictures/background.png");
+  background-image: url("../pictures/background-beige.jpg");
   background-repeat: repeat;
   background-position: center;
-  overflow: scroll;
 }
 
 .login-box > h1 {
@@ -51,6 +54,16 @@ the design for the small window
   text-shadow: 1px 1px #686868;
   font-family: 'Orienta', sans-serif;
 }
+
+.login-box > p1 {
+  font-size: 30px;
+    text-decoration: none;
+  color: black;
+  text-shadow: 1px 1px #686868;
+  font-family: 'Orienta', sans-serif;
+}
+
+
 /*
 the design for the button
 */
