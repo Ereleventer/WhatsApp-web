@@ -54,6 +54,16 @@ the design for the small window
   text-shadow: 1px 1px #686868;
   font-family: 'Orienta', sans-serif;
 }
+
+.login-box > p1 {
+  font-size: 30px;
+    text-decoration: none;
+  color: black;
+  text-shadow: 1px 1px #686868;
+  font-family: 'Orienta', sans-serif;
+}
+
+
 /*
 the design for the button
 */

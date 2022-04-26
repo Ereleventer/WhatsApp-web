@@ -141,7 +141,7 @@ export default function RegisterComponent() {
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Photo</Form.Label>
-            <Form.Control type="file" onChange={handleChange} src={pic} />
+            <Form.Control type="file" onChange={handleChange} src={pic}  accept="image/*" />
           </Form.Group>
           <div className="register-button">
             <Button variant="primary" type="register" onClick={validationUser}>
