@@ -34,4 +34,6 @@ in our app you can send messaged,photos,videos,records.
 
 enjoy using it! :) 
 
-Erel and Shahar.
+Erel Leventer 315009449
+Shahar Shaki 208524181
+  
