@@ -10,13 +10,12 @@ before you start, please run this commands in your cloned project:
 
 # our app includes 3 screens: #
 1. login screen
-![image](https://user-images.githubusercontent.com/92536647/165516547-902532f0-9da1-4106-8a10-920728437231.png)
 
-![image](https://user-images.githubusercontent.com/47318413/165027090-6baf9f34-432a-402c-82ba-9c798cafd3fe.png)
+![image](https://user-images.githubusercontent.com/92536647/165516906-fc687cfd-88e5-4852-ad0a-1f970ef8abf0.png)
 
 2. register screen
 
-![image](https://user-images.githubusercontent.com/47318413/165027115-9cf83e6b-0105-4624-a552-daa599e66c40.png)
+![image](https://user-images.githubusercontent.com/92536647/165516951-d145e85e-eb37-46ac-a945-0a334aaa3a2f.png)
 
 3. chat screen
 
