@@ -24,7 +24,6 @@ export default function RegisterComponent() {
   //this function check that the register details are valid
   function validationUser(event) {
     event.preventDefault();
-    console.log(password);
     //getUser is boolean that hold true if username already exist in the data base and false otherwise
     const getUser = Registered_Users.find((user) => user.username === username);
     // if this username already exist or the user leave the username box empty - set error and return
