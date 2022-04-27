@@ -17,7 +17,7 @@ import { Registered_Users } from "./localDataBase";
 import { users } from "./data/contacts";
 import useRecorder from "./useRecorder";
 
-function Chat() {
+function Chat(props) {
   //handle popup windows - all dropdown options (picture,video,voice and location)
   const [pictureShow, setShowPic] = useState(false);
   const handleClose = () => setShowPic(false);
@@ -43,6 +43,13 @@ function Chat() {
   const { chatName, setChatName } = useState("");
   const [input, setInput] = useState("");
 
+  function addZero(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+
   //handeling messages - we should push it to messages of each contacts.
   const sendMessage = (e) => {
     e.preventDefault();
@@ -52,7 +59,7 @@ function Chat() {
     if (input != "") {
       user.messages.push({
         content: input,
-        time: today.getHours() + ":" + today.getMinutes(),
+        time: today.getHours() + ":" + addZero(today.getMinutes()),
         type: "text",
         sender: userToDisplay.nickname,
       });
@@ -81,7 +88,7 @@ function Chat() {
 
     user.messages.push({
       content: pic,
-      time: today.getHours() + ":" + today.getMinutes(),
+      time: today.getHours() + ":" + addZero(today.getMinutes()),
       type: "pic",
       sender: userToDisplay.nickname,
     });
@@ -96,7 +103,7 @@ function Chat() {
 
     user.messages.push({
       content: vid,
-      time: today.getHours() + ":" + today.getMinutes(),
+      time: today.getHours() + ":" + addZero(today.getMinutes()),
       type: "vid",
       sender: userToDisplay.nickname,
     });
@@ -111,7 +118,7 @@ function Chat() {
 
     user.messages.push({
       content: audioURL,
-      time: today.getHours() + ":" + today.getMinutes(),
+      time: today.getHours() + ":" + addZero(today.getMinutes()),
       type: "audio",
       sender: userToDisplay.nickname,
     });
