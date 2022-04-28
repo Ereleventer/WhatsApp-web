@@ -25,6 +25,12 @@ export let Registered_Users = new Array(
     pic: avatar8,
   },
   {
+    username: "eytan99",
+    password: "1654",
+    nickname: "Eytan",
+    pic: avatar8,
+  },
+  {
     username: "test",
     password: "12",
     nickname: "Test",
