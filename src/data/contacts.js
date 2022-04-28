@@ -1,12 +1,12 @@
-import pic1 from "../pictures/pic1-male.jpg";
-import pic2 from "../pictures/pic2-male.jpg";
-import pic3 from "../pictures/pic2-woman.jpg";
-import pic4 from "../pictures/pic4-woman.jpg";
 import avatar1 from "../pictures/avatar1.png";
 import avatar2 from "../pictures/avatar2.png";
 import avatar3 from "../pictures/avatar3.png";
 import avatar4 from "../pictures/avatar4.png";
 import avatar5 from "../pictures/avatar5.png";
+import car from "../pictures/car.jpg";
+import tigers from "../pictures/tigers.mp4";
+import eminem from "../pictures/eminem.mp3";
+import tommy from "../pictures/Tommy.jpeg";
 
 export let users = [
   {
@@ -17,16 +17,39 @@ export let users = [
 
     messages: [
       {
-        content: "hey Erel how are you?",
+        content: "hey how are you?",
         sender: "Erel",
         time: "08:11",
         type: "text",
-
       },
       {
-        content: "you looks good today!",
+        content: "Did I show you my new car?",
         sender: "Erel",
-        time: "16:45",
+        time: "16:46",
+        type: "text",
+      },
+      {
+        content: car,
+        sender: "Erel",
+        time: "16:47",
+        type: "pic",
+      },
+      {
+        content: tigers,
+        sender: "Erel",
+        time: "16:48",
+        type: "vid",
+      },
+      {
+        content: eminem,
+        sender: "Erel",
+        time: "16:49",
+        type: "audio",
+      },
+      {
+        content: "bye see you later!",
+        sender: "Erel",
+        time: "16:50",
         type: "text",
       },
     ],
@@ -34,23 +57,45 @@ export let users = [
   {
     ID: 2,
     name: "Shahar",
-    last_seen: "last seen today at 9:15",
+    last_seen: "last seen today at 09:15",
     pic: avatar2,
 
     messages: [
       {
-        content: "hello Shahar",
-        sender:  "Shahar",
-        time: "09:17",
+        content: "hey how are you?",
+        sender: "Shahar",
+        time: "08:00",
         type: "text",
-
       },
       {
-        content: "You are the most beautiful man I ever saw!",
-        sender:  "Shahar",
-        time: "09:15",
+        content: "Wanna take a look at the cutest dog ever?",
+        sender: "Shahar",
+        time: "08:03",
         type: "text",
-
+      },
+      {
+        content: tommy,
+        sender: "Shahar",
+        time: "08:04",
+        type: "pic",
+      },
+      {
+        content: tigers,
+        sender: "Shahar",
+        time: "08:08",
+        type: "vid",
+      },
+      {
+        content: eminem,
+        sender: "Shahar",
+        time: "08:10",
+        type: "audio",
+      },
+      {
+        content: "it was nice talking to you",
+        sender: "Shahar",
+        time: "08:12",
+        type: "text",
       },
     ],
   },
@@ -62,22 +107,44 @@ export let users = [
 
     messages: [
       {
-        content: "whatsapppppp",
+        content: "hey how are you?",
         sender: "Alon",
-        time: "15:15",
+        time: "10:00",
         type: "text",
-
       },
       {
-        content: "all good?",
+        content: "this is tommy! my best friend",
         sender: "Alon",
-        time: "09:15",
+        time: "10:04",
         type: "text",
-
+      },
+      {
+        content: tommy,
+        sender: "Alon",
+        time: "10:05",
+        type: "pic",
+      },
+      {
+        content: tigers,
+        sender: "Alon",
+        time: "10:07",
+        type: "vid",
+      },
+      {
+        content: eminem,
+        sender: "Alon",
+        time: "10:09",
+        type: "audio",
+      },
+      {
+        content: "have a good day",
+        sender: "Alon",
+        time: "11:00",
+        type: "text",
       },
     ],
   },
-  
+
   {
     ID: 4,
     name: "Iris",
@@ -86,18 +153,40 @@ export let users = [
 
     messages: [
       {
-        content: "Hey Iris, how's Tommy?",
+        content: "hey how are you?",
         sender: "Iris",
-        time: "11:30",
+        time: "10:00",
         type: "text",
-
       },
       {
-        content: "Or should I say Toytoy?",
+        content: "look at my car!",
         sender: "Iris",
-        time: "19:16",
+        time: "10:04",
         type: "text",
-
+      },
+      {
+        content: car,
+        sender: "Iris",
+        time: "10:05",
+        type: "pic",
+      },
+      {
+        content: tigers,
+        sender: "Iris",
+        time: "10:07",
+        type: "vid",
+      },
+      {
+        content: eminem,
+        sender: "Iris",
+        time: "10:09",
+        type: "audio",
+      },
+      {
+        content: "bye",
+        sender: "Iris",
+        time: "10:30",
+        type: "text",
       },
     ],
   },
@@ -109,18 +198,40 @@ export let users = [
 
     messages: [
       {
-        content: "Hey, how are you Arad?",
+        content: "hey how are you?",
         sender: "Arad",
-        time: "20:12",
+        time: "10:00",
         type: "text",
-
       },
       {
-        content: "You are Erel's little brother right?",
+        content: "my car!",
         sender: "Arad",
-        time: "07:18",
+        time: "10:04",
         type: "text",
-
+      },
+      {
+        content: car,
+        sender: "Arad",
+        time: "10:05",
+        type: "pic",
+      },
+      {
+        content: tigers,
+        sender: "Arad",
+        time: "10:07",
+        type: "vid",
+      },
+      {
+        content: eminem,
+        sender: "Arad",
+        time: "10:09",
+        type: "audio",
+      },
+      {
+        content: "nice talking to you, I hope you enjoyed",
+        sender: "Arad",
+        time: "14:22",
+        type: "text",
       },
     ],
   },
