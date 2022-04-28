@@ -7,8 +7,38 @@ import car from "../pictures/car.jpg";
 import tigers from "../pictures/tigers.mp4";
 import eminem from "../pictures/eminem.mp3";
 import tommy from "../pictures/Tommy.jpeg";
+import enjoy from "../pictures/enjoy.jpeg";
+import welcome from "../pictures/welcome.png";
+
 
 export let users = [
+  {
+    ID: 0,
+    name: "WELCOME",
+    last_seen: "online",
+    pic: welcome,
+
+    messages: [
+      {
+        content: "Welcome to our chat app!",
+        sender: "WELCOME",
+        time: "00:00",
+        type: "text",
+      },
+      {
+        content: "Please add new chat or select one of the excisting chats.",
+        sender: "WELCOME",
+        time: "00:01",
+        type: "text",
+      },
+      {
+        content: enjoy,
+        sender: "WELCOME",
+        time: "00:01",
+        type: "img",
+      },
+    ],
+  },
   {
     ID: 1,
     name: "Erel",

@@ -44,7 +44,8 @@ export default function RegisterComponent() {
     }
 
     //if everything is ok, push the new details into the data base, so the user can now login with those details
-    Registered_Users.push({ username, password, pic, nickname });
+    const isNew = true;
+    Registered_Users.push({ username, password, pic, nickname, isNew });
 
     //navigate to login page after complete register
     navigate("/login");

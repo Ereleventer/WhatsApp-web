@@ -12,6 +12,7 @@ import Modal from "react-bootstrap/Modal";
 import { Form, Button, Alert } from "react-bootstrap";
 import { users } from "./data/contacts";
 
+
 function Sidebar() {
   //handle popup of create new chat
   const [pictureShow, setShowPic] = useState(false);
@@ -23,6 +24,7 @@ function Sidebar() {
   const [onErorrUsername, setOnErrorUsername] = React.useState(false);
 
   const handleNewChat = () => {
+
     const getUser = Registered_Users.find(
       (user) => user.nickname === newContact
     );
@@ -36,19 +38,19 @@ function Sidebar() {
    
     var messages = [
       {
-        content: "Welcome to our chat!",
+        content: "Hi i'm " + name,
         sender: name,
         time: "20:12",
         type: "text", 
       },
       {
-        content: "Welcome!!",
+        content: "nice to meet you!",
         sender: name,
         time: "23:50",
         type: "text",
       }
   ]
-    users.push({ ID, name, pic, last_seen, messages });
+      users.push({ ID, name, pic, last_seen, messages });
     setShowPic(false);
   };
 
@@ -89,10 +91,29 @@ function Sidebar() {
         </div>
       </div>
       <div className="sidebar_chats">
-        {users.map((users) => {
+        {getUserFilter.isNew === false ? <div>
+          {users
+           .filter(
+                (users) =>
+                users.ID != 0
+              )
+              .map((users) => {
           return <SidebarChat ID={users.ID} />;
           
         })}
+        </div> :
+        <div>
+           {users
+           .filter(
+                (users) =>
+                users.ID > 5
+              )
+              .map((users) => {
+                return <SidebarChat ID={users.ID} />;
+              })}
+
+        </div>
+        }
       </div>
 
       <Modal className="new_chat" show={pictureShow} onHide={handleClose}>

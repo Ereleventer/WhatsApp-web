@@ -40,7 +40,7 @@ export default function LoginComponent() {
       currentUserLogin.username = username;
       currentUserLoginNickName = getUser.nickname;
       currentUserLoginPic = getUser.pic;
-      navigate("/chat/1");
+      navigate("/chat/0");
     } else {
       //else - set error to true.
       setOnError(true);
