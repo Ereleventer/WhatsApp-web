@@ -29,7 +29,7 @@ function SidebarChat(props) {
         <div className="sidebarChat_info">
           <h2>{getUser.name}</h2>
           <p>{latestMesasge.content}</p>
-          <p>{latestMesasge.time}</p>
+          <p1>{latestMesasge.time}</p1>
         </div>
       </div>
     </Link>

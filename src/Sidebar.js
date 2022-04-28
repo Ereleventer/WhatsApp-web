@@ -76,7 +76,7 @@ function Sidebar() {
         <img src={currentUserLoginPic} className="avatar" />
 
         <div className="sidebar_headerRight">
-          <h1> {currentUserLoginNickName}</h1>
+          <h1> Welcome {currentUserLoginNickName}</h1>
           <button
             onClick={handleShow}
             data-toggle="tooltip"
