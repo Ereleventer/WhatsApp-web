@@ -213,9 +213,30 @@ function Chat(props) {
       <div className="chat_body" oscrollTop={scrollTop} id="scroll">
         
            {messagesList.map((value) => {
+             
             console.log(value);
-            return <div><h1>{value.content}</h1></div>;
-          })}
+            return (
+                <p
+                  className={`chat_message ${
+                    value.sent && "chat_reciever"
+                  }`}
+                >
+                  <span
+                    className={`chat_name ${
+                      value.sent &&
+                      "chat_reciever_name"
+                    }`}
+                  >
+                    {value.sender}
+                  </span>
+                  {value.content}
+                  <span className="chat_timestamp">
+                    {value.created}
+                    {}
+                  </span>
+                </p>
+              );
+            })}
   </div>
 
         {/* // getUser.messages
