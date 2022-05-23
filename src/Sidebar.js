@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Sidebar.css";
 import chatIcon from "./pictures/chat_icon.jpg";
 import SidebarChat from "./SidebarChat";
@@ -14,6 +14,49 @@ import { users } from "./data/contacts";
 
 
 function Sidebar() {
+  const [list,setList] = useState([]);
+
+  useEffect(async () => {
+  const add = "?id="
+  //should change to the current user 
+  const userName = currentUserLoginNickName;
+  const apiUrl = "https://localhost:7061/contacts" +add + userName;
+  const res = fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => 
+    setList(data));
+  //  console.log('This is yourfcfdfsddfs data', list);
+}, []);
+
+
+// useEffect(async () => {
+  
+//   const res =
+//   //  await
+//    fetch('https://localhost:7061/WeatherForecast', {
+//     // method: 'GET', // *GET, POST, PUT, DELETE, etc.
+//     // mode: 'cors', // no-cors, *cors, same-origin
+//     // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+//     // credentials: 'same-origin', // include, *same-origin, omit
+//     // headers: {
+//     //   'Content-Type': 'application/json'
+//     //   // 'Content-Type': 'application/x-www-form-urlencoded',
+//     // },
+//     // redirect: 'follow', // manual, *follow, error
+//     // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+//     body: JSON.stringify({"id": currentUserLoginNickName}) // body data type must match "Content-Type" header
+//   });
+//   const data = 
+//   // await 
+//   res.json();
+//   setList(data);
+//   console.log(data);
+
+// }, [setList]);
+// console.log('#####################');
+// console.log(list);
+// console.log('#####################');
+
   //handle popup of create new chat
   const [pictureShow, setShowPic] = useState(false);
   const handleClose = () => setShowPic(false);
@@ -28,6 +71,13 @@ function Sidebar() {
     const getUser = Registered_Users.find(
       (user) => user.nickname === newContact
     );
+    console.log("$$$$$$$$$$$$$$$$$");
+    console.log(getUser);
+    console.log("$$$$$$$$$$$$$$$$$");
+    if (getUser == undefined){
+      setOnErrorUsername(true);
+      return;
+    }
     const pic = getUser.pic;
     const name = getUser.nickname;
     const getUserfromContacts = users.find((user) => user.name === newContact);
@@ -62,7 +112,7 @@ function Sidebar() {
         dismissible
       >
         <Alert.Heading style={{ fontSize: "10px" }}>
-          Chat Already exist! choose another contact.
+          Error! Chat Already exist or you entered wrong data!
         </Alert.Heading>
       </Alert>
     );
@@ -79,6 +129,11 @@ function Sidebar() {
 
         <div className="sidebar_headerRight">
           <h1> Welcome {currentUserLoginNickName}</h1>
+          {/* <h1>hiiiii</h1> */}
+          {/* {list.map((value) => {
+            console.log(value);
+            return <div><h1>{value.id}</h1></div>;
+          })} */}
           <button
             onClick={handleShow}
             data-toggle="tooltip"
@@ -92,13 +147,15 @@ function Sidebar() {
       </div>
       <div className="sidebar_chats">
         {getUserFilter.isNew === false ? <div>
-          {users
-           .filter(
-                (users) =>
-                users.ID != 0
-              )
-              .map((users) => {
-          return <SidebarChat ID={users.ID} />;
+          {
+            list
+          // users
+          //  .filter(
+          //       (users) =>
+          //       users.ID != 0
+          //     )
+              .map((value, index) => {
+          return <SidebarChat ID={index} name={value.id} />;
           
         })}
         </div> :
@@ -123,21 +180,57 @@ function Sidebar() {
         <Modal.Body>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label className="new_chat_body">
-              <p>Select the Contact Name</p>
+              <p>Type the Contact Nickname</p>
             </Form.Label>
             <Form.Control
-              as="select"
+              type="text"
               value={newContact}
               onChange={(e) => setNewContact(e.target.value)}
             >
-              {Registered_Users.filter(
+              {/* {Registered_Users.filter(
                 (Registered_Users) =>
                   Registered_Users.nickname !== getUserFilter.nickname
               ).map((Registered_Users) => {
                 return <option>{Registered_Users.nickname}</option>;
-              })}
+              })} */}
             </Form.Control>
             {onErorrUsername && returnAlertErrorUsername()}
+          </Form.Group>
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label className="new_chat_body">
+              <p>Type the Contact UserName</p>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              // value={newContact}
+              // onChange={(e) => setNewContact(e.target.value)}
+            >
+              {/* {Registered_Users.filter(
+                (Registered_Users) =>
+                  Registered_Users.nickname !== getUserFilter.nickname
+              ).map((Registered_Users) => {
+                return <option>{Registered_Users.nickname}</option>;
+              })} */}
+            </Form.Control>
+            {/* {onErorrUsername && returnAlertErrorUsername()} */}
+          </Form.Group>
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label className="new_chat_body">
+              <p>Type the Contact Address</p>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              // value={newContact}
+              // onChange={(e) => setNewContact(e.target.value)}
+            >
+              {/* {Registered_Users.filter(
+                (Registered_Users) =>
+                  Registered_Users.nickname !== getUserFilter.nickname
+              ).map((Registered_Users) => {
+                return <option>{Registered_Users.nickname}</option>;
+              })} */}
+            </Form.Control>
+            {/* {onErorrUsername && returnAlertErrorUsername()} */}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

@@ -16,8 +16,32 @@ import Modal from "react-bootstrap/Modal";
 import { Registered_Users } from "./localDataBase";
 import { users } from "./data/contacts";
 import useRecorder from "./useRecorder";
+import { currentUserLoginNickName } from "./components/LoginComponent";
 
 function Chat(props) {
+  const location = useLocation();
+
+  const ID = location.pathname.split("/").pop();
+  const user = users.find((user) => user.ID === Number(ID));
+  const [messagesList,setList] = useState([]);
+
+  //should change HERE!!! TO ANOTHER RESPONSE!
+  useEffect(async () => {
+  const add = "?currentId="
+  //should change to the current user 
+  const userName = currentUserLoginNickName;
+  const contactname= "/" + "Liron";
+  const message = "/" + "messages";
+  const apiUrl = "https://localhost:7061/contacts" +contactname +message +add + userName;
+  console.log("api_url:" + apiUrl);
+  const res = fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => 
+    setList(data));
+   console.log('This is yourfcfdfsddfs data', messagesList);
+}, []);
+
+
   //handle popup windows - all dropdown options (picture,video,voice and location)
   const [pictureShow, setShowPic] = useState(false);
   const handleClose = () => setShowPic(false);
@@ -39,7 +63,7 @@ function Chat(props) {
   const inputFile = useRef(null);
 
   const { currentUser } = useAuth();
-  const location = useLocation();
+  // const location = useLocation();
   const { chatName, setChatName } = useState("");
   const [input, setInput] = useState("");
 
@@ -187,35 +211,44 @@ function Chat(props) {
         <div className="chat_headerRight"></div>
       </div>
       <div className="chat_body" oscrollTop={scrollTop} id="scroll">
-        {getUser.messages
-          .filter(
-            // (getUser.messages) => {
-            (message) => getUser.ID !== lastSegment
-          )
-          .map((message) => {
-            return (
-              <p
-                className={`chat_message ${
-                  message.sender === currentUser.nickname && "chat_reciever"
-                }`}
-              >
-                <span
-                  className={`chat_name ${
-                    message.sender === currentUser.nickname &&
-                    "chat_reciever_name"
-                  }`}
-                >
-                  {message.sender}
-                </span>
-                {messageType(message)}
-                <span className="chat_timestamp">
-                  {message.time}
-                  {}
-                </span>
-              </p>
-            );
+        
+           {messagesList.map((value) => {
+            console.log(value);
+            return <div><h1>{value.content}</h1></div>;
           })}
-      </div>
+  </div>
+
+        {/* // getUser.messages
+        //   .filter(
+        //     // (getUser.messages) => { */}
+        {/* //     (message) => getUser.ID !== lastSegment
+        //   )
+        // .map((message) => {
+          // */}
+          {/* // //   return (
+          // //     <p */}
+          {/* //       className={`chat_message ${ */}
+          {/* //         message.sender === currentUser.nickname && "chat_reciever"
+          //       }`}
+          //     >
+          //       <span
+          //         className={`chat_name ${
+          //           message.sender === currentUser.nickname &&
+          //           "chat_reciever_name"
+          //         }`}
+          //       >
+          //         {message.sender}
+          //       </span>
+          //       {value.content}
+          //       {messageType(message)}
+          //       <span className="chat_timestamp">
+          //         {message.time}
+          //         {}
+          //       </span>
+          //     </p>
+          //   );
+          // })} */}
+    
       <div className="chat_footer">
         <div
           className="drop_down"

@@ -41,44 +41,44 @@ export let users = [
   },
   {
     ID: 1,
-    name: "Erel",
+    name: "Eredfdl",
     last_seen: "online",
     pic: avatar1,
 
     messages: [
       {
         content: "hey how are you?",
-        sender: "Erel",
+        sender: "Eredfdl",
         time: "08:11",
         type: "text",
       },
       {
         content: "Did I show you my new car?",
-        sender: "Erel",
+        sender: "Eredfdl",
         time: "16:46",
         type: "text",
       },
       {
         content: car,
-        sender: "Erel",
+        sender: "Eredfdl",
         time: "16:47",
         type: "pic",
       },
       {
         content: tigers,
-        sender: "Erel",
+        sender: "Eredfdl",
         time: "16:48",
         type: "vid",
       },
       {
         content: eminem,
-        sender: "Erel",
+        sender: "Eredfdl",
         time: "16:49",
         type: "audio",
       },
       {
         content: "bye see you later!",
-        sender: "Erel",
+        sender: "Eredfdl",
         time: "16:50",
         type: "text",
       },
