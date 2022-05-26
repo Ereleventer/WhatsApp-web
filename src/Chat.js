@@ -24,22 +24,9 @@ function Chat(props) {
   const ID = location.pathname.split("/").pop();
   const user = users.find((user) => user.ID === Number(ID));
   const [messagesList,setList] = useState([]);
-
+  console.log(messagesList);
   //should change HERE!!! TO ANOTHER RESPONSE!
-  useEffect(async () => {
-  const add = "?currentId="
-  //should change to the current user 
-  const userName = currentUserLoginNickName;
-  const contactname= "/" + "Liron";
-  const message = "/" + "messages";
-  const apiUrl = "https://localhost:7061/contacts" +contactname +message +add + userName;
-  console.log("api_url:" + apiUrl);
-  const res = fetch(apiUrl)
-    .then((response) => response.json())
-    .then((data) => 
-    setList(data));
-   console.log('This is yourfcfdfsddfs data', messagesList);
-}, []);
+  
 
 
   //handle popup windows - all dropdown options (picture,video,voice and location)
@@ -75,18 +62,66 @@ function Chat(props) {
   }
 
   //handeling messages - we should push it to messages of each contacts.
-  const sendMessage = (e) => {
+  const useSendMessage = (e) => {
     e.preventDefault();
     const ID = location.pathname.split("/").pop();
     const today = new Date();
     const user = users.find((user) => user.ID === Number(ID));
     if (input != "") {
-      user.messages.push({
-        content: input,
-        time: today.getHours() + ":" + addZero(today.getMinutes()),
-        type: "text",
-        sender: userToDisplay.nickname,
-      });
+      // user.messages.push({
+      //   content: input,
+      //   time: today.getHours() + ":" + addZero(today.getMinutes()),
+      //   type: "text",
+      //   sender: userToDisplay.nickname,
+      // });
+
+      // useEffect(async () => {
+        const add = "?currentId="
+        //should change to the current user 
+        const userName = currentUserLoginNickName;
+        const contactname= "/" + "Liron";
+        const message = "/" + "messages";
+
+        const msgUrl = "https://localhost:7061/contacts" +contactname +message + "?currentId=" + userName +
+        "&amIsent=true";
+        console.log("api_url:" + msgUrl);
+        const res = fetch(msgUrl,{
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify({'from': currentUserLoginNickName, 'to' : "Liron", 'content' : input}) // body data type must match "Content-Type" header
+        });
+          console.log('This is yourfcfdfsddfs data', messagesList);
+        // }, []);
+     
+    // const data = await res.json();
+      // const resp = await fetch(msgUrl,{
+      //   method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //     // 'Content-Type': 'application/x-www-form-urlencoded',
+      //   },
+      //   body: JSON.stringify({'from': currentUserLoginNickName, 'to' : "Liron", 'content' : input}) // body data type must match "Content-Type" header
+      // });
+
+
+
+      
+        //  .then((response) => response.json());
+
+        // const transferURL = "https://localhost:7061/transfer" +contactname +message;
+        // console.log("api_url:" + apiUrl);
+        // const resTr = fetch(transferURL,{
+        //   method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //     // 'Content-Type': 'application/x-www-form-urlencoded',
+        //   },
+        //   body: JSON.stringify({'content' : input}) // body data type must match "Content-Type" header
+        // })
+        //   .then((response) => response.json());
     }
     setInput("");
     setTimeout(() => {
@@ -96,6 +131,23 @@ function Chat(props) {
       ObjDiv.scroll({ top: ObjDiv.scrollHeight, behavior: "smooth" });
     }, 1);
   };
+
+  useEffect(async () => {
+    const add = "?currentId="
+    //should change to the current user 
+    const userName = currentUserLoginNickName;
+    const contactname= "/" + "Liron";
+    const message = "/" + "messages";
+    const apiUrl = "https://localhost:7061/contacts" +contactname +message +add + userName;
+    console.log("api_url:" + apiUrl);
+    const res = await fetch(apiUrl);
+      const data = await res.json();
+      setList(data);
+      // .then((response) => response.json())
+      // .then((data) => 
+      // setList(data));
+     console.log('This is yourfcfdfsddfs data', messagesList);
+  }, []);
 
   const today = new Date();
   const UrlImg = (e) => {
@@ -202,7 +254,7 @@ function Chat(props) {
   return (
     <div className="chat">
       <div className="chat_header">
-        <img src={getUser.pic} className="chatAvatar" />
+        {/* <img src={getUser.pic} className="chatAvatar" /> */}
         <div className="chat_headerInfo">
           <h3> {getUser.name} </h3>
           <p>{getUser.last_seen}</p>
@@ -271,7 +323,7 @@ function Chat(props) {
           // })} */}
     
       <div className="chat_footer">
-        <div
+        {/* <div
           className="drop_down"
           style={{ border: "none", textAlign: "center", display: "flex" }}
         >
@@ -436,15 +488,15 @@ function Chat(props) {
               </Button>
             </Modal.Footer>
           </Modal>
-        </div>
-        <form>
+        </div> */}
+        <form> 
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type a message..."
             type="text"
           />
-          <button onClick={sendMessage} type="submit">
+          <button onClick={useSendMessage} type="submit">
             {" "}
             Send
           </button>

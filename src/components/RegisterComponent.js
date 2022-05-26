@@ -45,8 +45,16 @@ export default function RegisterComponent() {
 
     //if everything is ok, push the new details into the data base, so the user can now login with those details
     const isNew = true;
-    Registered_Users.push({ username, password, pic, nickname, isNew });
-
+    // Registered_Users.push({ username, password, pic, nickname, isNew });
+    const add = "?currentId="
+    //should change to the current user 
+    const apiUrl = "https://localhost:7061/register/" +nickname + "/" +username + "/" + password;
+    console.log("api_url:" + apiUrl);
+    const res = fetch(apiUrl,{
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      // body: JSON.stringify({'content' : ''}) // body data type must match "Content-Type" header
+    })
+      .then((response) => response.json());
     //navigate to login page after complete register
     navigate("/login");
   }

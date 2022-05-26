@@ -100,7 +100,33 @@ function Sidebar() {
         type: "text",
       }
   ]
-      users.push({ ID, name, pic, last_seen, messages });
+      // users.push({ ID, name, pic, last_seen, messages });
+      
+      
+        //invitation - need to change the address
+        const apiUrlinv = "https://localhost:7061/contacts";
+        console.log("api_url:" + apiUrlinv);
+        const resINV = fetch(apiUrlinv,{
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          body: JSON.stringify({'from': currentUserLogin, 'to' : name, 'server' : 'localhost'}) // body data type must match "Content-Type" header
+        })
+          .then((response) => response.json())
+          .then(text => {
+            try {
+              const apiUrl = "https://localhost:7061/contacts";
+              console.log("api_url:" + apiUrl);
+              const res = fetch(apiUrl,{
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                body: JSON.stringify({'id': currentUserLogin, 'to' : name, 'server' : 'localhost'}) // body data type must match "Content-Type" header
+              })
+        .then((response) => response.json());
+            } catch(err) {
+              // The response wasn't a JSON object
+              // Do your text handling here
+            }
+          });
+
+
     setShowPic(false);
   };
 
@@ -125,7 +151,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar_header">
-        <img src={currentUserLoginPic} className="avatar" />
+        {/* <img src={currentUserLoginPic} className="avatar" /> */}
 
         <div className="sidebar_headerRight">
           <h1> Welcome {currentUserLoginNickName}</h1>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import { Button, Form, Alert } from "react-bootstrap";
 import { Registered_Users } from "../localDataBase";
 import { useAuth } from "../context/AuthContext";
@@ -19,6 +19,21 @@ export let currentUserLoginPic = {
 };
 
 export default function LoginComponent() {
+
+//   const [list,setList] = useState([]);
+
+//   useEffect(async () => {
+//   const add = "?id="
+//   //should change to the current user 
+//   const userName = currentUserLoginNickName;
+//   const apiUrl = "https://localhost:7061/contacts" +add + userName;
+//   const res = fetch(apiUrl)
+//     .then((response) => response.json())
+//     .then((data) => 
+//     setList(data));
+//   //  console.log('This is yourfcfdfsddfs data', list);
+// }, []);
+
   //here we hold the input of the user (his username, password..)
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");

@@ -50,7 +50,7 @@ function SidebarChat(props) {
     */
     <Link to={`/chat/${props.ID}`} style={{ textDecoration: "none" }}>
       <div className="sidebarChat">
-        <img src={getUser.pic} className="avatarChat" />
+        {/* <img src={getUser.pic} className="avatarChat" /> */}
         <div className="sidebarChat_info">
         {/* {list[props.ID].map((value) => {
             console.log(value);
