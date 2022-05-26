@@ -88,6 +88,20 @@ the design for the button
   border-radius: 10px;
 }
 
+.rate{
+  margin-top: -5px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  text-align: center;
+  color: #CEF2E1;
+  margin-bottom: 30px;
+  border-radius: 40px;
+  border: #D7F9F8;
+  transition-duration: 2s;
+}
+
 
 .register{
   margin-top: -5px;
@@ -101,10 +115,22 @@ the design for the button
   border-radius: 40px;
   border: #D7F9F8;
   transition-duration: 2s;
-
-
-
 }
+
+.rate_button {
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  text-align: center;
+  color: #CEF2E1;
+  margin-bottom: 30px;
+  border: #D7F9F8;
+  transition-duration: 2s;
+}
+
+
+
 .register_button {
   align-items: center;
   justify-content: center;
@@ -115,11 +141,14 @@ the design for the button
   margin-bottom: 30px;
   border: #D7F9F8;
   transition-duration: 2s;
-
-  
 }
 
 .register_button:hover {
+  display: flex;
+  border-radius: 10px;
+}
+
+.rate_button:hover {
   display: flex;
   border-radius: 10px;
 }

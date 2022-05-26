@@ -106,6 +106,20 @@ export default function LoginComponent() {
               </Button>
             </Link>
           </div>
+          <div className="rate">
+            <Link to="/rates">
+              <Button
+                variant="primary"
+                type="button"
+                className="rate_button"
+                onClick={() =>
+                  (window.location.href = "http://localhost:5268/")
+                }
+              >
+                Rate us!
+              </Button>
+            </Link>
+          </div>
         </Form>
       </div>
     </div>

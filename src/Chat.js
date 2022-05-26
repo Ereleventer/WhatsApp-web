@@ -16,6 +16,7 @@ import Modal from "react-bootstrap/Modal";
 import { Registered_Users } from "./localDataBase";
 import { users } from "./data/contacts";
 import useRecorder from "./useRecorder";
+import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 
 function Chat(props) {
   //handle popup windows - all dropdown options (picture,video,voice and location)
@@ -43,6 +44,30 @@ function Chat(props) {
   const { chatName, setChatName } = useState("");
   const [input, setInput] = useState("");
 
+  const [connection, setConnection] = useState([]);
+
+  //need to put inside use effect that happens only once when loading loading page - need to call this function from a use effect
+  const registerHub = async () => {
+    //connect to the hub builder that we talk with
+    const connection = new HubConnectionBuilder()
+      .withUrl("http://localhost:5268/hubMessage")
+      .configureLogging(LogLevel.Information)
+      .build();
+    await connection.start();
+    setConnection(connection);
+  };
+
+  useEffect(() => {
+    registerHub();
+  }, []);
+
+  if (connection.length != 0) {
+    connection.on("messageValidation", (user, message) => {
+      //todoo check if its the user that need to get the message - only 1 user need to push into his message texts
+      console.log(message);
+    });
+  }
+
   function addZero(i) {
     if (i < 10) {
       i = "0" + i;
@@ -50,13 +75,22 @@ function Chat(props) {
     return i;
   }
 
+  const invokeSendMessage = async (user, message) => {
+    try {
+      await connection.invoke("invokeSendMessage", user, message);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   //handeling messages - we should push it to messages of each contacts.
-  const sendMessage = (e) => {
+  const sendMessage = async (e) => {
     e.preventDefault();
     const ID = location.pathname.split("/").pop();
     const today = new Date();
     const user = users.find((user) => user.ID === Number(ID));
     if (input != "") {
+      invokeSendMessage(user.name, input);
       user.messages.push({
         content: input,
         time: today.getHours() + ":" + addZero(today.getMinutes()),
@@ -188,10 +222,7 @@ function Chat(props) {
       </div>
       <div className="chat_body" oscrollTop={scrollTop} id="scroll">
         {getUser.messages
-          .filter(
-            // (getUser.messages) => {
-            (message) => getUser.ID !== lastSegment
-          )
+          .filter((message) => getUser.ID !== lastSegment)
           .map((message) => {
             return (
               <p
