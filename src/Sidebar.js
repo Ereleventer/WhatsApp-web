@@ -5,27 +5,34 @@ import SidebarChat from "./SidebarChat";
 import contacts from "./data/contacts";
 import { Registered_Users } from "./localDataBase";
 import LoginComponent from "./components/LoginComponent";
-import { currentUserLogin } from "./components/LoginComponent";
+// import { currentUserLogin } from "./components/LoginComponent";
 import { currentUserLoginPic } from "./components/LoginComponent";
 import { currentUserLoginNickName } from "./components/LoginComponent";
 import Modal from "react-bootstrap/Modal";
 import { Form, Button, Alert } from "react-bootstrap";
 import { users } from "./data/contacts";
 
+export let addedContactServer = {
+  username: "",
+};
+
 
 function Sidebar() {
   const [list,setList] = useState([]);
+  console.log("listttttt:" + list
+  );
 
   useEffect(async () => {
   const add = "?id="
   //should change to the current user 
   const userName = currentUserLoginNickName;
   const apiUrl = "https://localhost:7061/contacts" +add + userName;
+  console.log("erelurl:" + apiUrl);
   const res = fetch(apiUrl)
     .then((response) => response.json())
     .then((data) => 
     setList(data));
-  //  console.log('This is yourfcfdfsddfs data', list);
+    console.log('This is !!!!!good data', list);
 }, []);
 
 
@@ -62,67 +69,49 @@ function Sidebar() {
   const handleClose = () => setShowPic(false);
   const handleShow = () => setShowPic(true);
   const [newContact, setNewContact] = React.useState("");
+  const [newContactUserName, setNewContactUser] = React.useState("");
+  const [newContactServer, setNewContactServer] = React.useState("");
+
   const ID = users[users.length - 1].ID + 1;
   const last_seen = "online";
   const [onErorrUsername, setOnErrorUsername] = React.useState(false);
 
-  const handleNewChat = () => {
-
-    const getUser = Registered_Users.find(
-      (user) => user.nickname === newContact
-    );
-    console.log("$$$$$$$$$$$$$$$$$");
-    console.log(getUser);
-    console.log("$$$$$$$$$$$$$$$$$");
-    if (getUser == undefined){
-      setOnErrorUsername(true);
-      return;
-    }
-    const pic = getUser.pic;
-    const name = getUser.nickname;
-    const getUserfromContacts = users.find((user) => user.name === newContact);
-    if (getUserfromContacts) {
-      setOnErrorUsername(true);
-      return;
-    }
-   
-    var messages = [
-      {
-        content: "Hi i'm " + name,
-        sender: name,
-        time: "20:12",
-        type: "text", 
-      },
-      {
-        content: "nice to meet you!",
-        sender: name,
-        time: "23:50",
-        type: "text",
-      }
-  ]
-      // users.push({ ID, name, pic, last_seen, messages });
-      
-      
+  const handleNewChat  = async () => {
+      console.log("USER:" + newContactUserName);
+      console.log("SERVER" + newContactServer);
+      addedContactServer = newContactServer;
         //invitation - need to change the address
-        const apiUrlinv = "https://localhost:7061/contacts";
+        const apiUrlinv = "https://" + newContactServer +"/invitations?fromName=" + currentUserLoginNickName;
         console.log("api_url:" + apiUrlinv);
-        const resINV = fetch(apiUrlinv,{
+        const resINV = await fetch(apiUrlinv,{
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          body: JSON.stringify({'from': currentUserLogin, 'to' : name, 'server' : 'localhost'}) // body data type must match "Content-Type" header
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify({'from': currentUserLoginNickName, 'to' : newContactUserName, 'server' : newContactServer}) // body data type must match "Content-Type" header
         })
-          .then((response) => response.json())
-          .then(text => {
-            try {
-              const apiUrl = "https://localhost:7061/contacts";
+        .then(async response => {
+          // const data = await response.json();
+
+            // check for error response
+            if (!response.ok) {
+              returnAlertErrorUsername();
+            }
+            else{
+          // .then((response) => response.json())
+          // .then(text => {
+            // try {
+              const apiUrl = "https://localhost:7061/contacts" + "?currentId=" + currentUserLoginNickName;
               console.log("api_url:" + apiUrl);
               const res = fetch(apiUrl,{
                 method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                body: JSON.stringify({'id': currentUserLogin, 'to' : name, 'server' : 'localhost'}) // body data type must match "Content-Type" header
+                headers: {
+                  'Content-Type': 'application/json'
+                  // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify({'id': newContact, 'name' : newContactUserName, 'server' : newContactServer}) // body data type must match "Content-Type" header
               })
-        .then((response) => response.json());
-            } catch(err) {
-              // The response wasn't a JSON object
-              // Do your text handling here
             }
           });
 
@@ -172,31 +161,13 @@ function Sidebar() {
         </div>
       </div>
       <div className="sidebar_chats">
-        {getUserFilter.isNew === false ? <div>
-          {
-            list
-          // users
-          //  .filter(
-          //       (users) =>
-          //       users.ID != 0
-          //     )
-              .map((value, index) => {
+        <div>
+          {list.map((value, index) => {
           return <SidebarChat ID={index} name={value.id} />;
           
         })}
-        </div> :
-        <div>
-           {users
-           .filter(
-                (users) =>
-                users.ID > 5
-              )
-              .map((users) => {
-                return <SidebarChat ID={users.ID} />;
-              })}
 
-        </div>
-        }
+      </div>
       </div>
 
       <Modal className="new_chat" show={pictureShow} onHide={handleClose}>
@@ -228,8 +199,9 @@ function Sidebar() {
             </Form.Label>
             <Form.Control
               type="text"
-              // value={newContact}
-              // onChange={(e) => setNewContact(e.target.value)}
+            
+              value={newContactUserName}
+              onChange={(e) => setNewContactUser(e.target.value)}
             >
               {/* {Registered_Users.filter(
                 (Registered_Users) =>
@@ -246,8 +218,8 @@ function Sidebar() {
             </Form.Label>
             <Form.Control
               type="text"
-              // value={newContact}
-              // onChange={(e) => setNewContact(e.target.value)}
+              value={newContactServer}
+              onChange={(e) => setNewContactServer(e.target.value)}
             >
               {/* {Registered_Users.filter(
                 (Registered_Users) =>

@@ -45,21 +45,52 @@ export default function LoginComponent() {
   const { setCurrentUser } = useAuth();
 
   //when pressing the login button we go to this function, check the validity of his details
-  function validationUser(event) {
+  async function validationUser(event) {
     event.preventDefault();
     //getUser is a boolean that hold true if the username that the user write is in the data base, and false otherwise.
-    const getUser = Registered_Users.find((user) => user.username === username);
+    // const getUser = Registered_Users.find((user) => user.username === username);
     //if the username is in the data base and the password that the user write is match to the user name, so navigate to chat page
-    if (getUser && getUser.password === password) {
-      setCurrentUser(getUser);
-      currentUserLogin.username = username;
-      currentUserLoginNickName = getUser.nickname;
-      currentUserLoginPic = getUser.pic;
-      navigate("/chat/0");
-    } else {
+    // if (getUser && getUser.password === password) {
+      const msgUrl = "https://localhost:7061/login/" +username +"/" + password;
+        console.log("api_url:" + msgUrl);
+        const res = await fetch(msgUrl,{
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          // body: JSON.stringify({'from': currentUserLoginNickName, 'to' : "Liron", 'content' : input}) // body data type must match "Content-Type" header
+        })
+        // const data = await res.json();
+        .then(async response => {
+          // const data = await response.json();
+
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response statusText
+                // const error = (data && data.message) || response.statusText;
+                // return Promise.reject(error);
+                setOnError(true);
+            }
+            else{
+              console.log("it should nevigate!!!!!");
+              setCurrentUser(true);
+              currentUserLoginNickName = username;
+              navigate("/chat/0");
+            }
+          });
+
+        // console.log('This is yourfcfdfsddfs data', data);
+        
+      // setCurrentUser(getUser);
+      // currentUserLogin.username = username;
+      // currentUserLoginNickName = getUser.nickname;
+      // currentUserLoginPic = getUser.pic;
+      // navigate("/chat/0");
+    // } else {
       //else - set error to true.
-      setOnError(true);
-    }
+      // setOnError(true);
+    // }
   }
 
   // this function called when setOnError is true, it means we have error with the details that the user writem so we ALERT popup.

@@ -17,6 +17,8 @@ import { Registered_Users } from "./localDataBase";
 import { users } from "./data/contacts";
 import useRecorder from "./useRecorder";
 import { currentUserLoginNickName } from "./components/LoginComponent";
+import { addedContactServer } from "./Sidebar";
+
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 
 
@@ -50,37 +52,69 @@ function Chat(props) {
   const [scrollTop, setScrollTop] = useState(1500);
 
   const [connection, setConnection] = useState([]);
-
+  //undoooo
   //need to put inside use effect that happens only once when loading loading page - need to call this function from a use effect
-  const registerHub = async () => {
-    //connect to the hub builder that we talk with
-    const connection = new HubConnectionBuilder()
-      .withUrl("http://localhost:5268/hubMessage")
-      .configureLogging(LogLevel.Information)
-      .build();
-    await connection.start();
-    setConnection(connection);
-  };
+  // const registerHub = async () => {
+  //   //connect to the hub builder that we talk with
+  //   const connection = new HubConnectionBuilder()
+  //     .withUrl("http://localhost:5268/hubMessage")
+  //     .configureLogging(LogLevel.Information)
+  //     .build();
+  //   await connection.start();
+  //   setConnection(connection);
+  // };
 
-  useEffect(() => {
-    registerHub();
-  }, []);
+  // useEffect(() => {
+  //   registerHub();
+  // }, []);
 
-  if (connection.length != 0) {
-    connection.on("messageValidation", (user, message) => {
-      //todoo check if its the user that need to get the message - only 1 user need to push into his message texts
-      console.log(message);
-    });
-  }
+  // if (connection.length != 0) {
+  //   connection.on("messageValidation", (user, message) => {
+  //     //todoo check if its the user that need to get the message - only 1 user need to push into his message texts
+  //     console.log(message);
+  //   });
+  // }
 
-  const invokeSendMessage = async (user, message) => {
-    try {
-      await connection.invoke("invokeSendMessage", user, message);
-    } catch (e) {
-      console.log(e);
+  // const invokeSendMessage = async (user, message) => {
+  //   try {
+  //     await connection.invoke("invokeSendMessage", user, message);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  const [contactsList,setListContacts] = useState([]);
+  const contactId = location.pathname.split("/").pop();
+  var user_nickname = "";
+  var user_lastdate = "";
+  var user_server = "";
+  {contactsList.map((value, index) => {
+    
+    if (index == contactId){
+      user_nickname = value.id;
+      user_lastdate = value.lastdate;
+      user_server = value.server;
+
+      console.log("index:" + index);
+      console.log("value:" + value.id);
+
     }
-  };
+    
+  })}
 
+  console.log("nicknamee should beeee:" + user_nickname);
+  useEffect(async () => {
+    const add = "?id="
+    //should change to the current user 
+    const userName = currentUserLoginNickName;
+    const apiUrl = "https://localhost:7061/contacts" +add + userName;
+    console.log("erelurl:" + apiUrl);
+    const res = await fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => 
+      setListContacts(data));
+      console.log('This is !!!!!good data', contactsList);
+  }, []);
 
   const inputFile = useRef(null);
 
@@ -111,12 +145,30 @@ function Chat(props) {
       // });
 
       // useEffect(async () => {
-        invokeSendMessage(user.name, input);
+        // invokeSendMessage(user.name, input);
         const add = "?currentId="
         //should change to the current user 
         const userName = currentUserLoginNickName;
-        const contactname= "/" + "Liron";
+        const contactname= "/" + user_nickname;
         const message = "/" + "messages";
+        const end = "?amIsent=true";
+        var server = addedContactServer.name;
+        if (server == null){
+          console.log("gurgur");
+          server = user_server;
+        }
+        console.log("servi is: " + server);
+        const transferURL = "https://" + server + "/transfer" + end ;
+        console.log("transssss:" + transferURL);
+        const resTr = fetch(transferURL,{
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify({'from': currentUserLoginNickName, 'to' : "Liron", 'content' : input}) // body data type must match "Content-Type" header
+        })
+
 
         const msgUrl = "https://localhost:7061/contacts" +contactname +message + "?currentId=" + userName +
         "&amIsent=true";
@@ -130,34 +182,9 @@ function Chat(props) {
           body: JSON.stringify({'from': currentUserLoginNickName, 'to' : "Liron", 'content' : input}) // body data type must match "Content-Type" header
         });
           console.log('This is yourfcfdfsddfs data', messagesList);
-        // }, []);
-     
-    // const data = await res.json();
-      // const resp = await fetch(msgUrl,{
-      //   method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //     // 'Content-Type': 'application/x-www-form-urlencoded',
-      //   },
-      //   body: JSON.stringify({'from': currentUserLoginNickName, 'to' : "Liron", 'content' : input}) // body data type must match "Content-Type" header
-      // });
+        
 
-
-
-      
-        //  .then((response) => response.json());
-
-        // const transferURL = "https://localhost:7061/transfer" +contactname +message;
-        // console.log("api_url:" + apiUrl);
-        // const resTr = fetch(transferURL,{
-        //   method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        //   headers: {
-        //     'Content-Type': 'application/json'
-        //     // 'Content-Type': 'application/x-www-form-urlencoded',
-        //   },
-        //   body: JSON.stringify({'content' : input}) // body data type must match "Content-Type" header
-        // })
-        //   .then((response) => response.json());
+  
     }
     setInput("");
     setTimeout(() => {
@@ -167,23 +194,32 @@ function Chat(props) {
       ObjDiv.scroll({ top: ObjDiv.scrollHeight, behavior: "smooth" });
     }, 1);
   };
-
-  useEffect(async () => {
+  console.log("irisss   " + user_nickname);
+  
+  // useEffect(async () => {
+    
     const add = "?currentId="
     //should change to the current user 
     const userName = currentUserLoginNickName;
-    const contactname= "/" + "Liron";
+    // const contactname=  user_nickname;
+    const nick = user_nickname;
+    const contactname= "/"+ nick;
+
     const message = "/" + "messages";
     const apiUrl = "https://localhost:7061/contacts" +contactname +message +add + userName;
-    console.log("api_url:" + apiUrl);
-    const res = await fetch(apiUrl);
-      const data = await res.json();
-      setList(data);
+    console.log("toytoy api_url:" + apiUrl);
+    const res = fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => 
+    setList(data));
+    // const res =  fetch(apiUrl);
+    //   const data =  res.json();
+    //   setList(data);
       // .then((response) => response.json())
       // .then((data) => 
       // setList(data));
-     console.log('This is yourfcfdfsddfs data', messagesList);
-  }, []);
+     console.log('This is messages luli data', messagesList);
+  // }, []);
 
   const today = new Date();
   const UrlImg = (e) => {
@@ -292,8 +328,8 @@ function Chat(props) {
       <div className="chat_header">
         {/* <img src={getUser.pic} className="chatAvatar" /> */}
         <div className="chat_headerInfo">
-          <h3> {getUser.name} </h3>
-          <p>{getUser.last_seen}</p>
+          <h3> {user_nickname} </h3>
+          <p>{user_lastdate}</p>
         </div>
 
         <div className="chat_headerRight"></div>
