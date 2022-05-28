@@ -19,19 +19,21 @@ import useRecorder from "./useRecorder";
 import { currentUserLoginNickName } from "./components/LoginComponent";
 import { addedContactServer } from "./Sidebar";
 
-import { HubConnectionBuilder, LogLevel, HttpTransportType } from "@microsoft/signalr";
-
+import {
+  HubConnectionBuilder,
+  LogLevel,
+  HttpTransportType,
+} from "@microsoft/signalr";
+import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
 
 function Chat(props) {
   const location = useLocation();
 
   const ID = location.pathname.split("/").pop();
   const user = users.find((user) => user.ID === Number(ID));
-  const [messagesList,setList] = useState([]);
+  const [messagesList, setList] = useState([]);
 
   //should change HERE!!! TO ANOTHER RESPONSE!
-  
-
 
   //handle popup windows - all dropdown options (picture,video,voice and location)
   const [pictureShow, setShowPic] = useState(false);
@@ -55,21 +57,18 @@ function Chat(props) {
   //undoooo
   //need to put inside use effect that happens only once when loading loading page - need to call this function from a use effect
   const registerHub = async () => {
-    try{
-    //connect to the hub builder that we talk with
-    const connection = new HubConnectionBuilder()
-      .withUrl("https://localhost:7061/hubMessage"
-      // , {
-      //   skipNegotiation: true,
-      //   transport: HttpTransportType.WebSockets
-      // }
-      )
-      .configureLogging(LogLevel.Information)
-      .build();
-    await connection.start();
-    setConnection(connection);
-    }
-    catch (e) { 
+    try {
+      //connect to the hub builder that we talk with
+      const connection = new HubConnectionBuilder()
+        .withUrl("https://localhost:7061/hubMessage", {
+          skipNegotiation: true,
+          transport: HttpTransportType.WebSockets,
+        })
+        .configureLogging(LogLevel.Information)
+        .build();
+      await connection.start();
+      setConnection(connection);
+    } catch (e) {
       console.log(e);
     }
   };
@@ -78,45 +77,59 @@ function Chat(props) {
   //   registerHub();
   // }, []);
 
+  const [render, setRender] = useState(true);
   if (connection.length != 0) {
-    connection.on("messageValidation", (user, message) => {
+    connection.on("messageValidation", (user, message, randNum) => {
       //todoo check if its the user that need to get the message - only 1 user need to push into his message texts
       if (user == user_nickname) {
-      const end = "?amIsent=true";
-      var server = addedContactServer.name;
-      if (server == null){
-        server = user_server;
+        const end = "?amIsent=true";
+        var server = addedContactServer.name;
+        if (server == null) {
+          server = user_server;
+        }
+        // const transferURL = "https://" + server + "/transfer" + end;
+        // const resTr = fetch(transferURL, {
+        //   method: "POST", // *GET, POST, PUT, DELETE, etc.
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     // 'Content-Type': 'application/x-www-form-urlencoded',
+        //   },
+        //   body: JSON.stringify({
+        //     from: currentUserLoginNickName,
+        //     to: user_nickname,
+        //     content: message,
+        //   }), // body data type must match "Content-Type" header
+        // });
+        const newId = randNum;
+        const newMessage = {
+          id: newId,
+          content: message,
+          created: Date.now(),
+          sent: false,
+        };
+        if (newList.length == 0) {
+          // setnewList((messages) => [...messages, newMessage]);
+          newList.push(newMessage);
+        } else if (newList[newList.length - 1].id != randNum) {
+          // setnewList((messages) => [...messages, newMessage]);
+          newList.push(newMessage);
+
+          // newList.push(newMessage);
+        }
+        setRender(!render);
       }
-      const transferURL = "https://" + server + "/transfer" + end ;
-      const resTr =  fetch(transferURL,{
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        headers: {
-          'Content-Type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: JSON.stringify({'from': currentUserLoginNickName, 'to' : user_nickname, 'content' : message}) // body data type must match "Content-Type" header
-      })
-    
-      const newId = newList[newList.length-1].id+1;
-      const newMessage = 
-      {id:newId, content:message, created:Date.now(), sent:false};
-      newList.push(newMessage);
-      }
-      console.log(message);
     });
   }
 
-  const invokeSendMessage = async (user, message) => {
+  const invokeSendMessage = async (user, message, randNum) => {
     try {
-      await connection.invoke("invokeSendMessage", user, message);
+      await connection.invoke("invokeSendMessage", user, message, randNum);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const [contactsList,setContactsList] = useState([]);
-
-
+  const [contactsList, setContactsList] = useState([]);
 
   const inputFile = useRef(null);
 
@@ -147,45 +160,63 @@ function Chat(props) {
       // });
 
       // useEffect(async () => {
-        const add = "?currentId="
-        //should change to the current user 
-        const userName = currentUserLoginNickName;
-        const contactname= "/" + user_nickname;
-        const message = "/" + "messages";
-        const end = "?amIsent=true";
-        var server = addedContactServer.name;
-        if (server == null){
-          server = user_server;
-        }
-        const transferURL = "https://" + server + "/transfer" + end ;
-        const resTr =  fetch(transferURL,{
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: JSON.stringify({'from': currentUserLoginNickName, 'to' : user_nickname, 'content' : input}) // body data type must match "Content-Type" header
-        })
+      const add = "?currentId=";
+      //should change to the current user
+      const userName = currentUserLoginNickName;
+      const contactname = "/" + user_nickname;
+      const message = "/" + "messages";
+      const end = "?amIsent=true";
+      var server = addedContactServer.name;
+      if (server == null) {
+        server = user_server;
+      }
+      const transferURL = "https://" + server + "/transfer" + end;
+      const resTr = fetch(transferURL, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json",
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify({
+          from: currentUserLoginNickName,
+          to: user_nickname,
+          content: input,
+        }), // body data type must match "Content-Type" header
+      });
 
-
-        const msgUrl = "https://localhost:7061/contacts" +contactname +message + "?currentId=" + userName +
+      const msgUrl =
+        "https://localhost:7061/contacts" +
+        contactname +
+        message +
+        "?currentId=" +
+        userName +
         "&amIsent=true";
-        const res =  fetch(msgUrl,{
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: JSON.stringify({'from': currentUserLoginNickName, 'to' : user_nickname, 'content' : input}) // body data type must match "Content-Type" header
-        });
-        
-          const newId = newList[newList.length-1].id+1;
-          const newMessage = 
-          {id:newId, content:input, created:Date.now(), sent:true};
-          newList.push(newMessage);
-  
+      const res = fetch(msgUrl, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json",
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify({
+          from: currentUserLoginNickName,
+          to: user_nickname,
+          content: input,
+        }), // body data type must match "Content-Type" header
+      });
+
+      const newId = newList[newList.length - 1].id + 1;
+      const newMessage = {
+        id: newId,
+        content: input,
+        created: Date.now(),
+        sent: true,
+      };
+      newList.push(newMessage);
     }
-    invokeSendMessage(user_nickname, input);
+
+    const randNum = Math.random().toString(10);
+
+    invokeSendMessage(currentUserLoginNickName, input, randNum);
     setInput("");
     setTimeout(() => {
       setScrollTop(2200);
@@ -195,11 +226,11 @@ function Chat(props) {
     }, 1);
   };
   // console.log("irisss   " + user_nickname);
-  
+
   // useEffect(async () => {
-    
+
   //   const add = "?currentId="
-  //   //should change to the current user 
+  //   //should change to the current user
   //   const userName = currentUserLoginNickName;
   //   // const contactname=  user_nickname;
   //   const nick = user_nickname;
@@ -212,20 +243,17 @@ function Chat(props) {
   //   //here is the problem
   //   const res = await fetch(apiUrl)
   //   .then((response) => response.json())
-  //   .then((data) => 
+  //   .then((data) =>
   //   setList(data));
-
 
   //   // const res =  fetch(apiUrl);
   //   //   const data =  res.json();
   //   //   setList(data);
   //     // .then((response) => response.json())
-  //     // .then((data) => 
+  //     // .then((data) =>
   //     // setList(data));
   //    console.log('This is messages luli data', messagesList);
   // }, []);
-
-
 
   const today = new Date();
   const UrlImg = (e) => {
@@ -329,149 +357,143 @@ function Chat(props) {
   const getUser = contacts.find((user) => user.ID == lastSegment);
   let [audioURL, isRecording, startRecording, stopRecording] = useRecorder();
 
-  
-  const [newList,setnewList] = useState([]);
-  
+  const [newList, setnewList] = useState([]);
+
   //should change HERE!!! TO ANOTHER RESPONSE!
-//   useEffect(async () => {
-//   const nick = findNickName();
-//   const add = "?currentId="
-//   //should change to the current user 
-//   const userName = currentUserLoginNickName;
-//   console.log("vallll: " + nick);
-//   if(nick!= "" && typeof nick != 'undefined'){
-//     console.log("tttttkuhiukilot: " + nick);
-//     const contactname= "/" + nick;
-//     const message = "/" + "messages";
+  //   useEffect(async () => {
+  //   const nick = findNickName();
+  //   const add = "?currentId="
+  //   //should change to the current user
+  //   const userName = currentUserLoginNickName;
+  //   console.log("vallll: " + nick);
+  //   if(nick!= "" && typeof nick != 'undefined'){
+  //     console.log("tttttkuhiukilot: " + nick);
+  //     const contactname= "/" + nick;
+  //     const message = "/" + "messages";
 
-//     const apiUrl = "https://localhost:7061/contacts" +contactname + message +add + userName;
-//     const res = fetch(apiUrl)
-//       .then(async (response) => response.json())
-//       .then((data) => 
-//       setnewList(data));
-//   }
-//    console.log('test: ', newList);
-// }, []);
+  //     const apiUrl = "https://localhost:7061/contacts" +contactname + message +add + userName;
+  //     const res = fetch(apiUrl)
+  //       .then(async (response) => response.json())
+  //       .then((data) =>
+  //       setnewList(data));
+  //   }
+  //    console.log('test: ', newList);
+  // }, []);
 
-// const contactId = location.pathname.split("/").pop();
-// var user_nickname = "";
-// var user_lastdate = "";
-// var user_server = "";
-// {contactsList.map((value, index) => {
-  
-//   if (index == contactId){
-//     user_nickname = value.id;
-//     user_lastdate = value.lastdate;
-//     user_server = value.server;
+  // const contactId = location.pathname.split("/").pop();
+  // var user_nickname = "";
+  // var user_lastdate = "";
+  // var user_server = "";
+  // {contactsList.map((value, index) => {
 
-//     console.log("index:" + index);
-//     console.log("value:" + value.id);
+  //   if (index == contactId){
+  //     user_nickname = value.id;
+  //     user_lastdate = value.lastdate;
+  //     user_server = value.server;
 
-//   }
-  
-// })}
+  //     console.log("index:" + index);
+  //     console.log("value:" + value.id);
 
-// const findNickName = () => {
-//   const contactId = location.pathname.split("/").pop();
-//   var user_nickname = "";
-//   var user_lastdate = "";
-//   var user_server = "";
-//   {contactsList.map((value, index) => {
-    
-//     if (index == contactId){
-//       user_nickname = value.id;
-//       user_lastdate = value.lastdate;
-//       user_server = value.server;
-//       return user_nickname;
-//       console.log("index:" + index);
-//       console.log("value:" + value.id);
+  //   }
 
-//     }
-    
-//   })}
-// };
+  // })}
 
+  // const findNickName = () => {
+  //   const contactId = location.pathname.split("/").pop();
+  //   var user_nickname = "";
+  //   var user_lastdate = "";
+  //   var user_server = "";
+  //   {contactsList.map((value, index) => {
 
-// console.log("nicknamee should beeee:" + user_nickname);
-// useEffect(async () => {
-//   const add = "?id="
-//   //should change to the current user 
-//   const userName = currentUserLoginNickName;
-//   const apiUrl = "https://localhost:7061/contacts" +add + userName;
-//   console.log("erelurl:" + apiUrl);
-//   const res = await fetch(apiUrl)
-//     .then((response) => response.json())
-//     .then((data) => 
-//     setListContacts(data));
-//     console.log('This is !!!!!good data', contactsList);
+  //     if (index == contactId){
+  //       user_nickname = value.id;
+  //       user_lastdate = value.lastdate;
+  //       user_server = value.server;
+  //       return user_nickname;
+  //       console.log("index:" + index);
+  //       console.log("value:" + value.id);
 
-    
-// }, []);
-const [user_nickname, setNickname] = React.useState("");
-const [user_server, setServer] = React.useState("");
-const [user_lastdate, setLastDate] = React.useState("");
-const [test, setTest] = React.useState(true);
+  //     }
 
+  //   })}
+  // };
 
-const getAnswers = async () => {
-  const add = "?id="
-  //should change to the current user 
-  const userName = currentUserLoginNickName;
-  const apiUrl = "https://localhost:7061/contacts" +add + userName;
-  // const res = await fetch(apiUrl)
-  //   .then((response) => response.json())
-  //   .then((data) => 
-  //   setListContacts(data));
+  // console.log("nicknamee should beeee:" + user_nickname);
+  // useEffect(async () => {
+  //   const add = "?id="
+  //   //should change to the current user
+  //   const userName = currentUserLoginNickName;
+  //   const apiUrl = "https://localhost:7061/contacts" +add + userName;
+  //   console.log("erelurl:" + apiUrl);
+  //   const res = await fetch(apiUrl)
+  //     .then((response) => response.json())
+  //     .then((data) =>
+  //     setListContacts(data));
+  //     console.log('This is !!!!!good data', contactsList);
 
-  const res = await fetch(apiUrl)
-  const data = await res.json()
-  setContactsList(data);
+  // }, []);
+  const [user_nickname, setNickname] = React.useState("");
+  const [user_server, setServer] = React.useState("");
+  const [user_lastdate, setLastDate] = React.useState("");
+  const [test, setTest] = React.useState(true);
+
+  const getAnswers = async () => {
+    const add = "?id=";
+    //should change to the current user
+    const userName = currentUserLoginNickName;
+    const apiUrl = "https://localhost:7061/contacts" + add + userName;
+    // const res = await fetch(apiUrl)
+    //   .then((response) => response.json())
+    //   .then((data) =>
+    //   setListContacts(data));
+
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+    setContactsList(data);
 
     var user_nickname1 = "";
-  var user_lastdate1 = "";
-  var user_server1 = "";
-  const contactId = location.pathname.split("/").pop();
+    var user_lastdate1 = "";
+    var user_server1 = "";
+    const contactId = location.pathname.split("/").pop();
 
-  {data.map((value, index) => {
-    
-    if (index == contactId){
-      user_nickname1 = value.id;
-      user_lastdate1 = value.lastdate;
-      user_server1 = value.server;
-   
-
+    {
+      data.map((value, index) => {
+        if (index == contactId) {
+          user_nickname1 = value.id;
+          user_lastdate1 = value.lastdate;
+          user_server1 = value.server;
+        }
+      });
     }
-    
-  })}
 
-  setNickname(user_nickname1);
-  setServer(user_server1)
-  setLastDate(user_lastdate1)
-  const add2 = "?currentId="
-  //should change to the current user 
-  const userName2 = currentUserLoginNickName;
-  // if(user_nickname1!= ""){
-    const contactname= "/" + user_nickname1;
+    setNickname(user_nickname1);
+    setServer(user_server1);
+    setLastDate(user_lastdate1);
+    const add2 = "?currentId=";
+    //should change to the current user
+    const userName2 = currentUserLoginNickName;
+    // if(user_nickname1!= ""){
+    const contactname = "/" + user_nickname1;
     const message = "/" + "messages";
 
-    const apiUrl1 = "https://localhost:7061/contacts" +contactname + message +add2 + userName2;
+    const apiUrl1 =
+      "https://localhost:7061/contacts" +
+      contactname +
+      message +
+      add2 +
+      userName2;
     const re2 = await fetch(apiUrl1)
       .then(async (response) => response.json())
-      .then((data) => 
-      setnewList(data));
-  // }
+      .then((data) => setnewList(data));
+    // }
 
-   setTest(false);
-
-}
-//
-useEffect( () => {
-
-  getAnswers();
-  registerHub();
-  
-
-}, []);
+    setTest(false);
+  };
+  //
+  useEffect(() => {
+    getAnswers();
+    registerHub();
+  }, []);
 
   return (
     <div className="chat">
@@ -485,42 +507,35 @@ useEffect( () => {
         <div className="chat_headerRight"></div>
       </div>
       <div className="chat_body" oscrollTop={scrollTop} id="scroll">
-           {newList.map((value,index) => {
-            return (
-                <p
-                  className={`chat_message ${
-                    value.sent && "chat_reciever"
-                  }`}
-                >
-                  <span
-                    className={`chat_name ${
-                      value.sent &&
-                      "chat_reciever_name"
-                    }`}
-                  >
-                    {value.sender}
-                  </span>
-                  {value.content}
-                  <span className="chat_timestamp">
-                    {value.created}
-                    {}
-                  </span>
-                </p>
-              );
-            })}
-  </div>
+        {newList.map((value, index) => {
+          return (
+            <p className={`chat_message ${value.sent && "chat_reciever"}`}>
+              <span
+                className={`chat_name ${value.sent && "chat_reciever_name"}`}
+              >
+                {value.sender}
+              </span>
+              {value.content}
+              <span className="chat_timestamp">
+                {value.created}
+                {}
+              </span>
+            </p>
+          );
+        })}
+      </div>
 
-        {/* // getUser.messages
+      {/* // getUser.messages
         //   .filter(
         //     // (getUser.messages) => { */}
-        {/* //     (message) => getUser.ID !== lastSegment
+      {/* //     (message) => getUser.ID !== lastSegment
         //   )
         // .map((message) => {
           // */}
-          {/* // //   return (
+      {/* // //   return (
           // //     <p */}
-          {/* //       className={`chat_message ${ */}
-          {/* //         message.sender === currentUser.nickname && "chat_reciever"
+      {/* //       className={`chat_message ${ */}
+      {/* //         message.sender === currentUser.nickname && "chat_reciever"
           //       }`}
           //     >
           //       <span
@@ -540,7 +555,7 @@ useEffect( () => {
           //     </p>
           //   );
           // })} */}
-    
+
       <div className="chat_footer">
         {/* <div
           className="drop_down"
@@ -708,7 +723,7 @@ useEffect( () => {
             </Modal.Footer>
           </Modal>
         </div> */}
-        <form> 
+        <form>
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
