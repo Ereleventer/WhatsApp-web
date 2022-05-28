@@ -54,34 +54,34 @@ function Chat(props) {
   const [connection, setConnection] = useState([]);
   //undoooo
   //need to put inside use effect that happens only once when loading loading page - need to call this function from a use effect
-  // const registerHub = async () => {
-  //   //connect to the hub builder that we talk with
-  //   const connection = new HubConnectionBuilder()
-  //     .withUrl("http://localhost:5268/hubMessage")
-  //     .configureLogging(LogLevel.Information)
-  //     .build();
-  //   await connection.start();
-  //   setConnection(connection);
-  // };
+  const registerHub = async () => {
+    //connect to the hub builder that we talk with
+    const connection = new HubConnectionBuilder()
+      .withUrl("http://localhost:7061/hubMessage")
+      .configureLogging(LogLevel.Information)
+      .build();
+    await connection.start();
+    setConnection(connection);
+  };
 
-  // useEffect(() => {
-  //   registerHub();
-  // }, []);
+  useEffect(() => {
+    registerHub();
+  }, []);
 
-  // if (connection.length != 0) {
-  //   connection.on("messageValidation", (user, message) => {
-  //     //todoo check if its the user that need to get the message - only 1 user need to push into his message texts
-  //     console.log(message);
-  //   });
-  // }
+  if (connection.length != 0) {
+    connection.on("messageValidation", (user, message) => {
+      //todoo check if its the user that need to get the message - only 1 user need to push into his message texts
+      console.log(message);
+    });
+  }
 
-  // const invokeSendMessage = async (user, message) => {
-  //   try {
-  //     await connection.invoke("invokeSendMessage", user, message);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  const invokeSendMessage = async (user, message) => {
+    try {
+      await connection.invoke("invokeSendMessage", user, message);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const [contactsList,setListContacts] = useState([]);
   const contactId = location.pathname.split("/").pop();
@@ -145,7 +145,7 @@ function Chat(props) {
       // });
 
       // useEffect(async () => {
-        // invokeSendMessage(user.name, input);
+        invokeSendMessage(user.name, input);
         const add = "?currentId="
         //should change to the current user 
         const userName = currentUserLoginNickName;
