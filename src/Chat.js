@@ -205,10 +205,11 @@ function Chat(props) {
       });
 
       const newId = newList[newList.length - 1].id + 1;
+      const today = new Date();
       const newMessage = {
         id: newId,
         content: input,
-        created: Date.now(),
+        created:  today.getHours() + ":" + addZero(today.getMinutes()),
         sent: true,
       };
       newList.push(newMessage);
